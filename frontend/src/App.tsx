@@ -11,11 +11,11 @@ function App() {
       password: "hello123",
     };
 
-    fetch("http://localhost:8000/user/Amir", {
+    fetch("http://localhost:8000/post/63e36894cac009e73bdf7543", {
       method: "GET", // or 'PUT'
       headers: {
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTRiMjk2ZGUxNjM0MGU1NzFjOTMyMCIsImlhdCI6MTY3NjAyNTQ2OSwiZXhwIjoxNjc2MTExODY5fQ.I0IH7kcljwh2BPVtHHo0POp3RQX2rRUf2NL2lCkePwM",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTRiMjk2ZGUxNjM0MGU1NzFjOTMyMCIsImlhdCI6MTY3NjI4MTI5OCwiZXhwIjoxNjc2MzY3Njk4fQ.hPAk9uLPBFNiIgerNBXwbjTD5rheyNKUbpQQxx0qsh4",
       },
     })
       .then((res) => res.json())
