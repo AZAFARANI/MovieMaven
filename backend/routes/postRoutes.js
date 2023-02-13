@@ -3,6 +3,7 @@ const postModel = require("../models/postModel");
 const express = require("express");
 const postRouter = express.Router();
 const jwt = require("jsonwebtoken");
+const PostModel = require("../models/postModel");
 
 postRouter.get("/posts", verifyToken, async (req, res) => {
   try {
@@ -52,6 +53,26 @@ postRouter.get("/post/:id", verifyToken, async (req, res) => {
     });
   }
   res.sendStatus(200);
+});
+
+postRouter.post("/newpost", verifyToken, async (req, res) => {
+  const { userName, title, content, imageUrl } = req.body;
+
+  const newPost = new PostModel({
+    userName,
+    title,
+    content,
+    imageUrl,
+    date: Date.now().toLocaleString(),
+    likes: [],
+    comments: [],
+  });
+
+  await newPost.save();
+  return res.status(200).json({
+    success: true,
+    message: "Post saved!",
+  });
 });
 
 module.exports = postRouter;
