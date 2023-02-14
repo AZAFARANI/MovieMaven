@@ -84,14 +84,12 @@ postRouter.put("/post/:id/edit", async (req, res) => {
 
   const postToEdit = await postModel.findOne({ _id: req.params.id });
 
-  console.log(post);
   if (!token) {
     return res.status(401).send("Access denied. No token provided.");
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decoded.id;
-    // Verify if the user ID in the JWT token matches the author of the information to be updated
 
     const checkId = user._id.toString();
 
@@ -110,9 +108,46 @@ postRouter.put("/post/:id/edit", async (req, res) => {
         message: "post updated!",
       });
     }
-  } catch (ex) {
-    console.log(ex);
-    res.status(400).send("Invalid token.");
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({
+      message: "invalid token!",
+    });
+  }
+});
+
+postRouter.delete("/post/:id/delete", async (req, res) => {
+  const token = req.headers["auth-token"];
+  const post = req.body;
+  const user = await userModel.findOne({ userName: post.userName }).lean();
+
+  const postToDelete = await postModel.findOne({ _id: req.params.id });
+
+  if (!token) {
+    return res.status(401).send("Access denied. No token provided.");
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    const checkId = user._id.toString();
+
+    if (userId !== checkId) {
+      console.log(userId, user._id);
+      return res.status(401).json({
+        success: false,
+        message: "Acces denied!",
+      });
+    } else {
+      await postModel.deleteOne({ _id: postToDelete._id.toString() });
+      return res.status(200).json({
+        success: true,
+        message: "Post deleted",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.send(400);
   }
 });
 
