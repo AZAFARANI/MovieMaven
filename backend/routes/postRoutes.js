@@ -4,6 +4,8 @@ const express = require("express");
 const postRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const PostModel = require("../models/postModel");
+const userModel = require("../models/userModel");
+const { ObjectId } = require("mongodb");
 
 postRouter.get("/posts", verifyToken, async (req, res) => {
   try {
@@ -73,6 +75,45 @@ postRouter.post("/newpost", verifyToken, async (req, res) => {
     success: true,
     message: "Post saved!",
   });
+});
+
+postRouter.put("/post/:id/edit", async (req, res) => {
+  const token = req.headers["auth-token"];
+  const post = req.body;
+  const user = await userModel.findOne({ userName: post.userName }).lean();
+
+  const postToEdit = await postModel.findOne({ _id: req.params.id });
+
+  console.log(post);
+  if (!token) {
+    return res.status(401).send("Access denied. No token provided.");
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+    // Verify if the user ID in the JWT token matches the author of the information to be updated
+
+    const checkId = user._id.toString();
+
+    if (userId !== checkId) {
+      console.log(userId, user._id);
+      return res.status(401).json({
+        success: false,
+        message: "Acces denied!",
+      });
+    } else {
+      postToEdit.title = post.title;
+      postToEdit.content = post.content;
+
+      await postToEdit.save();
+      return res.status(200).json({
+        message: "post updated!",
+      });
+    }
+  } catch (ex) {
+    console.log(ex);
+    res.status(400).send("Invalid token.");
+  }
 });
 
 module.exports = postRouter;
