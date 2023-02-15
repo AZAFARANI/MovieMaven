@@ -151,4 +151,72 @@ postRouter.delete("/post/:id/delete", async (req, res) => {
   }
 });
 
+postRouter.put("/post/:id/like", verifyToken, async (req, res) => {
+  const postToDelete = await postModel.findOne({ _id: req.params.id });
+  const userLike = req.body;
+
+  const checkIfLiked = postToDelete.likes.filter(
+    (l) => l.user === userLike.user
+  );
+  if (checkIfLiked.length != 0) {
+    return res.status(401).json({
+      success: false,
+      message: "Acces denied!",
+    });
+  } else {
+    postToDelete.likes.push(userLike);
+    await postToDelete.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "post liked!",
+    });
+  }
+});
+
+postRouter.put("/post/:id/unlike", async (req, res) => {
+  const user = req.body;
+  const token = req.headers["auth-token"];
+  const getUser = await userModel.findOne({ userName: user.user }).lean();
+  const getPost = await postModel.findOne({ _id: req.params.id }).lean();
+
+  const checkIfLiked = getPost.likes.filter((l) => l.user === user.user);
+
+  const findIndex = getPost.likes.findIndex((i) => i.user === user.user);
+
+  if (checkIfLiked.length != 0) {
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decoded.id;
+
+      const checkId = getUser._id.toString();
+
+      if (userId !== checkId) {
+        return res.status(401).json({
+          success: false,
+          message: "Acces denied!",
+        });
+      } else {
+        let newLike = [...getPost.likes];
+        newLike.splice(findIndex, 1);
+        console.log(newLike);
+        await postModel.updateOne({ likes: newLike });
+
+        return res.status(200).json({
+          success: true,
+          message: "Post unliked!",
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      res.sendStatus(400);
+    }
+  } else {
+    return res.status(404).json({
+      success: false,
+      message: "not found",
+    });
+  }
+});
+
 module.exports = postRouter;

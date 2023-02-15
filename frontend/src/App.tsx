@@ -6,20 +6,21 @@ import Cookies from "js-cookie";
 function App() {
   const go = () => {
     let hej = {
-      userName: "piramm",
-      title: "edited post!",
-      content: "this post was edited!",
-      imageUrl: "k",
-      likes: [],
-      comments: [],
+      user: "newUser",
+
+      // title: "edited post!",
+      // content: "this post was edited!",
+      // imageUrl: "k",
+      // likes: [],
+      // comments: [],
     };
 
-    fetch("http://localhost:8000/post/63ea12f2baf5e1e8d091a776/delete", {
-      method: "DELETE", // or 'PUT'
+    fetch("http://localhost:8000/post/63ea12892b5428e7c8872a19/unlike", {
+      method: "PUT", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTRiMjk2ZGUxNjM0MGU1NzFjOTMyMCIsImlhdCI6MTY3NjM3Mjg0OSwiZXhwIjoxNjc2NDU5MjQ5fQ.tJVcKKPx-nqkKSGpIwimxLXksnXUVumrDbVMOjYq7oA",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWI0ODJhNGZlYWViZThlMDc5NDkxZiIsImlhdCI6MTY3NjQ1NjE1MiwiZXhwIjoxNjc2NTQyNTUyfQ.tZwZThBgSeYE_Ycywy6RiNgTiWkJBo85N4Q3JjaOoYE",
       },
       body: JSON.stringify(hej),
     })
