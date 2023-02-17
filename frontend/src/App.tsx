@@ -7,6 +7,8 @@ function App() {
   const go = () => {
     let hej = {
       user: "newUser",
+      content: "hello!",
+      date: Date.now().toString(),
 
       // title: "edited post!",
       // content: "this post was edited!",
@@ -15,12 +17,12 @@ function App() {
       // comments: [],
     };
 
-    fetch("http://localhost:8000/post/63ea12892b5428e7c8872a19/unlike", {
+    fetch("http://localhost:8000/post/63e36894cac009e73bdf7543/comment", {
       method: "PUT", // or 'PUT'
       headers: {
         "Content-Type": "application/json",
         "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWI0ODJhNGZlYWViZThlMDc5NDkxZiIsImlhdCI6MTY3NjQ1NjE1MiwiZXhwIjoxNjc2NTQyNTUyfQ.tZwZThBgSeYE_Ycywy6RiNgTiWkJBo85N4Q3JjaOoYE",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWI0ODJhNGZlYWViZThlMDc5NDkxZiIsImlhdCI6MTY3NjYyNzE4OSwiZXhwIjoxNjc2NzEzNTg5fQ.qmV4cVeAXbXlcM-ChjJ-CsdBfYEnjn0m1JCUDRHJXss",
       },
       body: JSON.stringify(hej),
     })

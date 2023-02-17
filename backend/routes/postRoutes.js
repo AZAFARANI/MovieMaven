@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const PostModel = require("../models/postModel");
 const userModel = require("../models/userModel");
 const { ObjectId } = require("mongodb");
+const { default: mongoose } = require("mongoose");
 
 postRouter.get("/posts", verifyToken, async (req, res) => {
   try {
@@ -197,10 +198,10 @@ postRouter.put("/post/:id/unlike", async (req, res) => {
           message: "Acces denied!",
         });
       } else {
-        let newLike = [...getPost.likes];
+        const newLike = [...getPost.likes];
         newLike.splice(findIndex, 1);
-        console.log(newLike);
-        await postModel.updateOne({ likes: newLike });
+
+        await postModel.updateOne({ _id: req.params.id }, { likes: newLike });
 
         return res.status(200).json({
           success: true,
@@ -216,6 +217,23 @@ postRouter.put("/post/:id/unlike", async (req, res) => {
       success: false,
       message: "not found",
     });
+  }
+});
+
+postRouter.put("/post/:id/comment", verifyToken, async (req, res) => {
+  const postToComment = await postModel.findOne({ _id: req.params.id });
+  const userComment = req.body;
+
+  try {
+    postToComment.comments.push(userComment);
+    await postToComment.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "comment posted!",
+    });
+  } catch {
+    return res.sendStatus(500);
   }
 });
 
