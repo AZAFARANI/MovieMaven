@@ -2,6 +2,10 @@ import React from "react";
 import logo from "./logo.svg";
 import "./index.scss";
 import Cookies from "js-cookie";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Home } from "./components/Home";
+import { LoginRegister } from "./components/LoginRegister";
+import { NotFound } from "./components/NotFound";
 
 function App() {
   const go = () => {
@@ -32,9 +36,14 @@ function App() {
       });
   };
   return (
-    <div className="App">
-      <button onClick={go}>fetch</button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<LoginRegister />}></Route>
+        <Route path="/register" element={<LoginRegister />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
