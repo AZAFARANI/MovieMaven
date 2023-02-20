@@ -3,7 +3,10 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import Iuser from "../models/Iuser";
 
+import Cookie from "js-cookie";
+
 import "../style/login.scss";
+import Cookies from "js-cookie";
 
 export const LoginRegister = () => {
   const [login, setLogin] = useState<boolean>();
@@ -25,9 +28,9 @@ export const LoginRegister = () => {
       setLogin(false);
     }
 
-    if (cookie) {
-      console.log("coookieee");
-      navigate("/home");
+    if (Cookies.get("user")) {
+      console.log("cookie!");
+      navigate("/");
     }
   };
 
@@ -55,8 +58,14 @@ export const LoginRegister = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        setCookie("user", res.token, { path: "/" });
+        Cookies.set("user", res.token, {
+          expires: 1,
+          secure: true,
+          sameSite: "strict",
+          path: "/",
+        });
         localStorage.setItem("username", res.user);
+        navigate("/");
       });
   };
   return (
