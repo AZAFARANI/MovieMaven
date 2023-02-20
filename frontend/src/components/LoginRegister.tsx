@@ -1,8 +1,20 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import Iuser from "../models/Iuser";
+
 import "../style/login.scss";
 
 export const LoginRegister = () => {
   const [login, setLogin] = useState<boolean>();
+  const [userName, setUserName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [cookie, setCookie] = useCookies(["user"]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    CheckParams();
+  }, []);
 
   const CheckParams = () => {
     if (window.location.pathname === "/login") {
@@ -12,12 +24,41 @@ export const LoginRegister = () => {
       console.log("false");
       setLogin(false);
     }
+
+    if (cookie) {
+      console.log("coookieee");
+      navigate("/home");
+    }
   };
 
-  useEffect(() => {
-    CheckParams();
-  }, []);
+  const setUser = (e: ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.target.value);
+  };
 
+  const setPass = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    console.log(password);
+  };
+
+  const loginUser = () => {
+    let user = {
+      userName: userName,
+      password: password,
+    };
+
+    fetch("http://localhost:8000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setCookie("user", res.token, { path: "/" });
+        localStorage.setItem("username", res.user);
+      });
+  };
   return (
     <>
       <div className="container">
@@ -38,7 +79,11 @@ export const LoginRegister = () => {
               {login ? (
                 <>
                   <label>Username</label>
-                  <input placeholder="Username..." type="text"></input>
+                  <input
+                    onChange={setUser}
+                    placeholder="Username..."
+                    type="text"
+                  ></input>
                 </>
               ) : (
                 <div className="input">
@@ -50,7 +95,11 @@ export const LoginRegister = () => {
 
             <div className="input">
               <label>Password</label>
-              <input placeholder="Enter password..." type="password"></input>
+              <input
+                placeholder="Enter password..."
+                type="password"
+                onChange={setPass}
+              ></input>
             </div>
 
             {!login ? (
@@ -69,7 +118,9 @@ export const LoginRegister = () => {
             )}
 
             {login ? (
-              <button className="btn">LOGIN</button>
+              <button onClick={loginUser} className="btn">
+                LOGIN
+              </button>
             ) : (
               <button className="btn">Sign up</button>
             )}
