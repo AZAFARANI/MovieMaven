@@ -1,0 +1,41 @@
+.post {
+  width: 90%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.242);
+  overflow: scroll;
+
+  .iconCtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .imgCtn {
+    width: 100%;
+    height: 250px;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .titleCtn {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0px 10px;
+  }
+
+  .likesCtn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px;
+  }
+}
