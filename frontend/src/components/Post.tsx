@@ -14,22 +14,25 @@ export const Post = (props: IpostProps) => {
         <div className="imgCtn">
           <img src={props.post.imageUrl}></img>
         </div>
-        <div className="titleCtn">
+        <div className="authorCtn">
           <div className="iconCtn">
-            <img src="/svg/person-circle.svg"></img>
+            <img src="/svg/person.svg"></img>
             <span>{props.post.userName}</span>
           </div>
+          <span>{date.toLocaleDateString()}</span>
+        </div>
 
+        <div className="titleCtn">
           <h3>{props.post.title}</h3>
         </div>
 
-        <div className="likesCtn">
+        <div className="authorCtn">
           <div className="iconCtn">
             <img src="/svg/heart-fill.svg"></img>
             <span>{props.post.likes.length} likes</span>
           </div>
 
-          <span>{date.toLocaleDateString()}</span>
+          <span>{props.post.comments.length} comments</span>
         </div>
       </div>
     </>
