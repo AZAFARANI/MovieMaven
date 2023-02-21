@@ -61,12 +61,14 @@ postRouter.get("/post/:id", verifyToken, async (req, res) => {
 postRouter.post("/newpost", verifyToken, async (req, res) => {
   const { userName, title, content, imageUrl } = req.body;
 
+  console.log(req.body);
+
   const newPost = new PostModel({
     userName,
     title,
     content,
     imageUrl,
-    date: Date.now().toLocaleString(),
+    date: new Date(),
     likes: [],
     comments: [],
   });
