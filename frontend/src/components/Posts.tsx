@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import IpostResponse from "../models/response/IpostResponse";
 import { Post } from "./Post";
 import "../style/Posts.scss";
@@ -42,7 +42,9 @@ export const Posts = () => {
         <div className="heading">
           <div className="h1">
             <h1>All reviews</h1>
-            <button className="createBtn">+ CREATE REVIEW</button>
+            <Link to={"/selectMovie"}>
+              <button className="createBtn">+ CREATE REVIEW</button>
+            </Link>
           </div>
 
           <div className="filter">

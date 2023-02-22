@@ -7,6 +7,7 @@ import { Home } from "./components/Home";
 import { LoginRegister } from "./components/LoginRegister";
 import { NotFound } from "./components/NotFound";
 import { Posts } from "./components/Posts";
+import { SelectMovie } from "./components/SelectMovie";
 
 function App() {
   const go = () => {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/login" element={<LoginRegister />}></Route>
         <Route path="/register" element={<LoginRegister />}></Route>
         <Route path="/posts" element={<Posts />}></Route>
+        <Route path="/selectMovie" element={<SelectMovie />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
