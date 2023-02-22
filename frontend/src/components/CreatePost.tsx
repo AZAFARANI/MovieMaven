@@ -4,14 +4,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import Ipost from "../models/Ipost";
 import Movie from "../models/response/IomdbResponse";
 import Imovie from "../models/response/Movie";
+import MovieExtended from "../models/response/MovieExtended";
 import "../style/CreatePost.scss";
 
 export const CreatePost = () => {
-  const [movie, setMovie] = useState<Imovie>({
+  const [movie, setMovie] = useState<MovieExtended>({
     Title: "",
     Year: 2,
     Poster: "",
     imdbID: "",
+    Plot: "",
+    Actors: "",
+    Director: "",
+    Genre: "",
+    Writer: "",
   });
   const [content, setContent] = useState<string>("");
 
@@ -21,7 +27,7 @@ export const CreatePost = () => {
   useEffect(() => {
     fetch("http://www.omdbapi.com/?apikey=488b984b&i=" + params.id)
       .then((qwert) => qwert.json())
-      .then((result: Imovie) => {
+      .then((result: MovieExtended) => {
         setMovie(result);
       });
   }, []);
@@ -59,18 +65,41 @@ export const CreatePost = () => {
     <>
       <div className="bodyCtn">
         <div className="postCtn">
+          <h1>
+            {movie.Title} {movie.Year}
+          </h1>
+
           <div className="imgCtn">
             <img src={movie.Poster}></img>
           </div>
-          <h1>{movie.Title}</h1>
-          <div className="inputDiv">
-            <h1>Share your thoughts on this movie!</h1>
-            <textarea
-              onChange={setReview}
-              placeholder="Write your review here..."
-            ></textarea>
-            <button onClick={publish}>Publish Review</button>
+
+          <div className="infoDiv">
+            <span>{movie.Plot}</span>
           </div>
+
+          <div className="infoDiv">
+            <h1>Director</h1>
+            <span className="blue">{movie.Director}</span>
+          </div>
+
+          <div className="infoDiv">
+            <h1>Writer</h1>
+            <span className="blue">{movie.Writer}</span>
+          </div>
+
+          <div className="infoDiv">
+            <h1>Actors</h1>
+            <span className="blue">{movie.Actors}</span>
+          </div>
+        </div>
+
+        <div className="inputDiv">
+          <h1>Share your thoughts on this movie!</h1>
+          <textarea
+            onChange={setReview}
+            placeholder="Write your review here..."
+          ></textarea>
+          <button onClick={publish}>Publish Review</button>
         </div>
       </div>
     </>
