@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import { Link } from "react-router-dom";
 import IomdbResponse from "../models/response/IomdbResponse";
 import "../style/selectMovie.scss";
 
@@ -39,17 +40,19 @@ export const SelectMovie = () => {
       {movies ? (
         <div>
           <div className="movies">
-            {movies.map((movie) => {
+            {movies.map((movie, i) => {
               return (
-                <div className="movie">
-                  <div className="imgCtn2">
-                    <img src={movie.Poster}></img>
-                  </div>
+                <div key={i} className="movie">
+                  <Link to={"/CreatePost/" + movie.imdbID} key={movie.imdbID}>
+                    <div className="imgCtn2">
+                      <img src={movie.Poster}></img>
+                    </div>
 
-                  <div className="infoDiv">
-                    <span>{movie.Title}</span>
-                    <span>{movie.Year}</span>
-                  </div>
+                    <div className="infoDiv">
+                      <span>{movie.Title}</span>
+                      <span>{movie.Year}</span>
+                    </div>
+                  </Link>
                 </div>
               );
             })}

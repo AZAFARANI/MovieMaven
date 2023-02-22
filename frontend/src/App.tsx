@@ -8,6 +8,7 @@ import { LoginRegister } from "./components/LoginRegister";
 import { NotFound } from "./components/NotFound";
 import { Posts } from "./components/Posts";
 import { SelectMovie } from "./components/SelectMovie";
+import { CreatePost } from "./components/CreatePost";
 
 function App() {
   const go = () => {
@@ -45,6 +46,7 @@ function App() {
         <Route path="/register" element={<LoginRegister />}></Route>
         <Route path="/posts" element={<Posts />}></Route>
         <Route path="/selectMovie" element={<SelectMovie />}></Route>
+        <Route path="/CreatePost/:id" element={<CreatePost />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
