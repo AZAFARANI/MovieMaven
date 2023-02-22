@@ -6,6 +6,7 @@ import Movie from "../models/response/IomdbResponse";
 import Imovie from "../models/response/Movie";
 import MovieExtended from "../models/response/MovieExtended";
 import "../style/CreatePost.scss";
+import { Loader } from "./Loader";
 
 export const CreatePost = () => {
   const [movie, setMovie] = useState<MovieExtended>({
@@ -20,14 +21,17 @@ export const CreatePost = () => {
     Writer: "",
   });
   const [content, setContent] = useState<string>("");
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   let params = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsFetching(true);
     fetch("http://www.omdbapi.com/?apikey=488b984b&i=" + params.id)
       .then((qwert) => qwert.json())
       .then((result: MovieExtended) => {
+        setIsFetching(false);
         setMovie(result);
       });
   }, []);
@@ -63,6 +67,7 @@ export const CreatePost = () => {
 
   return (
     <>
+      {isFetching ? <Loader></Loader> : <></>}
       <div className="bodyCtn">
         <div className="postCtn">
           <h1>

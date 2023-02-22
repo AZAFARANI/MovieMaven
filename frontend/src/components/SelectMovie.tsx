@@ -2,19 +2,23 @@ import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import IomdbResponse from "../models/response/IomdbResponse";
 import "../style/selectMovie.scss";
+import { Loader } from "./Loader";
 
 export const SelectMovie = () => {
   const [movies, setMovies] = useState<IomdbResponse[]>([]);
   const [search, setSearch] = useState<string>("");
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const setSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
   const fetchMovies = () => {
+    setIsFetching(true);
     fetch("http://www.omdbapi.com/?s=" + search + "&apikey=488b984b")
       .then((qwert) => qwert.json())
       .then((result: IomdbResponse) => {
+        setIsFetching(false);
         console.log(result);
         setMovies(result.Search);
       });
@@ -36,6 +40,8 @@ export const SelectMovie = () => {
           <button onClick={fetchMovies}>Search</button>
         </div>
       </div>
+
+      {isFetching ? <Loader></Loader> : <></>}
 
       {movies ? (
         <div>

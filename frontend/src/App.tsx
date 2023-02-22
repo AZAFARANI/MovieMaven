@@ -41,13 +41,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/login" element={<LoginRegister />}></Route>
-        <Route path="/register" element={<LoginRegister />}></Route>
-        <Route path="/posts" element={<Posts />}></Route>
-        <Route path="/selectMovie" element={<SelectMovie />}></Route>
-        <Route path="/CreatePost/:id" element={<CreatePost />}></Route>
-        <Route path="*" element={<NotFound />}></Route>
+        <Route path="/" element={<Home />}>
+          <Route path="/login" element={<LoginRegister />}></Route>
+          <Route path="/register" element={<LoginRegister />}></Route>
+          <Route path="/posts" element={<Posts />}></Route>
+          <Route path="/selectMovie" element={<SelectMovie />}></Route>
+          <Route path="/CreatePost/:id" element={<CreatePost />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

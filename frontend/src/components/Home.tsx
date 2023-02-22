@@ -43,8 +43,6 @@ export const Home = () => {
         <span onClick={logOut}>Log out</span>
       </div>
       <Outlet></Outlet>
-
-      <button onClick={go}>fetch</button>
     </>
   );
 };
