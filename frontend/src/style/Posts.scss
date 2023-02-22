@@ -1,3 +1,4 @@
+@import "./mixin";
 body {
   .heading {
     width: 100%;
@@ -52,10 +53,11 @@ body {
       }
 
       .optionItem {
-        border: solid 1.5px black;
         color: black;
-        padding: 5px 10px;
-        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.259);
+        padding: 8px 10px;
+        box-shadow: 1px 1px 5px rgb(0 0 0 / 26%);
+        background-color: #fff6e9;
+        /* border-radius: 5px; */
       }
 
       .filterSearch {
@@ -68,6 +70,10 @@ body {
           height: 2rem;
           border: none;
           border-bottom: solid 1px grey;
+
+          @include laptop {
+            width: 50%;
+          }
         }
       }
     }
@@ -83,5 +89,19 @@ body {
 
     margin: 0 auto;
     padding: 5% 0 5% 10%;
+
+    @include tablet {
+      width: 85%;
+      justify-content: space-between;
+      padding: 5%;
+      gap: 40px;
+    }
+
+    @include laptop {
+      width: 85%;
+
+      padding: 3%;
+      justify-content: flex-start;
+    }
   }
 }

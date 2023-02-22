@@ -38,25 +38,27 @@ export const Posts = () => {
 
   return (
     <>
-      <div className="heading">
-        <div className="h1">
-          <h1>All reviews</h1>
-          <button className="createBtn">+ CREATE REVIEW</button>
-        </div>
-
-        <div className="filter">
-          <h2>Filter reviews by:</h2>
-          <div className="filterOptions">
-            <div className="optionItem">Most liked</div>
-            <div className="optionItem">Most recent</div>
+      <div>
+        <div className="heading">
+          <div className="h1">
+            <h1>All reviews</h1>
+            <button className="createBtn">+ CREATE REVIEW</button>
           </div>
 
-          <div className="filterSearch">
-            <input placeholder="Search reviews..." type="text"></input>
+          <div className="filter">
+            <h2>Filter reviews by:</h2>
+            <div className="filterOptions">
+              <div className="optionItem">Most liked</div>
+              <div className="optionItem">Most recent</div>
+            </div>
+
+            <div className="filterSearch">
+              <input placeholder="Search reviews..." type="text"></input>
+            </div>
           </div>
         </div>
+        <div className="postsCtn">{html}</div>
       </div>
-      <div className="postsCtn">{html}</div>
     </>
   );
 };

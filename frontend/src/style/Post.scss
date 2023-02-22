@@ -1,3 +1,5 @@
+@import "./mixin";
+
 .post {
   width: 90%;
   height: 400px;
@@ -7,6 +9,14 @@
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.242);
   overflow: scroll;
   background-color: white;
+
+  @include tablet {
+    width: 45%;
+  }
+
+  @include laptop {
+    width: 30%;
+  }
 
   .iconCtn {
     display: flex;
