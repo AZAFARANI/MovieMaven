@@ -15,20 +15,22 @@ export const Home = () => {
   };
 
   const go = () => {
-    let post: Ipost = {
-      userName: Cookies.get("user")!,
-      title: "this movie sucks!",
-      content: "star wars sucked ass!",
-      imageUrl: "../assets/images/pexels-photo-3183183.jpeg",
+    let post = {
+      user: Cookies.get("user")!,
+      content: "hello this is comment!",
+      date: new Date().toLocaleDateString(),
+
+      // title: "this movie sucks!",
+      // content: "star wars sucked ass!",
+      // imageUrl: "../assets/images/pexels-photo-3183183.jpeg",
     };
 
     console.log(JSON.stringify(post));
-    fetch("http://localhost:8000/newpost", {
-      method: "POST",
+    fetch("http://localhost:8000/post/63f62f117568c419ecaeffb5/comment", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZTRiMjk2ZGUxNjM0MGU1NzFjOTMyMCIsImlhdCI6MTY3Njk3MjY0NCwiZXhwIjoxNjc3MDU5MDQ0fQ.NMyOufqnso-z4WqDvIdxoPVjYe-hViR6xPSSNpMztxY",
+        "auth-token": Cookies.get("token")!,
       },
       body: JSON.stringify(post),
     })
@@ -43,6 +45,7 @@ export const Home = () => {
         <span onClick={logOut}>Log out</span>
       </div>
       <Outlet></Outlet>
+      <button onClick={go}>fetch</button>
     </>
   );
 };

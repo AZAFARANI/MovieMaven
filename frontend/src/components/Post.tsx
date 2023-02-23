@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import IpostResponse from "../models/response/IpostResponse";
 import "../style/Post.scss";
 
@@ -12,7 +13,10 @@ export const Post = (props: IpostProps) => {
     <>
       <div className="post">
         <div className="imgCtn">
-          <img src={props.post.imageUrl}></img>
+          <Link to={"/post/" + props.post._id}>
+            {" "}
+            <img src={props.post.imageUrl}></img>
+          </Link>
         </div>
         <div className="authorCtn">
           <div className="iconCtn">
