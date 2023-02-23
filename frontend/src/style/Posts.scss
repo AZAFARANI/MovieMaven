@@ -1,12 +1,15 @@
 @import "./mixin";
 body {
   .heading {
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     margin-bottom: 30px;
-    margin-left: 4%;
+
+    @include tablet {
+      width: 100%;
+    }
 
     .h1 {
       width: 100%;
@@ -89,7 +92,8 @@ body {
     display: flex;
 
     margin: 0 auto;
-    padding: 5% 0 5% 10%;
+
+    justify-content: center;
 
     @include tablet {
       width: 85%;
@@ -100,9 +104,6 @@ body {
 
     @include laptop {
       width: 85%;
-
-      padding: 3%;
-      justify-content: flex-start;
     }
   }
 }
