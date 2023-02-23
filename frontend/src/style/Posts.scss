@@ -86,7 +86,6 @@ body {
   .postsCtn {
     width: 100%;
     flex-wrap: wrap;
-
     gap: 50px;
     overflow: scroll;
     display: flex;
@@ -104,6 +103,9 @@ body {
 
     @include laptop {
       width: 85%;
+      gap: 37px;
+      justify-content: flex-start;
+      padding-left: 6% !important;
     }
   }
 }

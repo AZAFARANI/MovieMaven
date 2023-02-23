@@ -1,6 +1,15 @@
 @import "./mixin";
 
 .postCtn {
+  margin: 0 auto;
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+  border-radius: 10px;
+  box-shadow: 1px 1px 50px #00000059;
+  background: #0f2027;
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #0d1215, #203a43, #0e1517);
+
   width: 100%;
   padding: 5%;
   display: flex;
@@ -10,7 +19,9 @@
   overflow: scroll;
   margin: 0 auto;
   @include laptop {
-    width: 80%;
+    width: 70%;
+    margin-top: 50px;
+    margin-bottom: 50px;
   }
 
   h1 {
@@ -29,20 +40,21 @@
   .imgCtn {
     width: 100%;
     height: 600px;
-
+    border-bottom: solid;
     @include tablet {
       border-bottom: solid 0.5px rgba(158, 158, 158, 0.786);
       padding-bottom: 20px;
     }
 
+    @include laptop {
+      width: 100%;
+      height: 500px;
+    }
+
     img {
-      object-fit: cover;
+      object-fit: contain;
       width: 100%;
       height: 100%;
-
-      @include tablet {
-        object-fit: contain;
-      }
     }
   }
 

@@ -69,7 +69,7 @@ export const CreatePost = () => {
     <>
       {isFetching ? <Loader></Loader> : <></>}
       <div className="bodyCtn">
-        <div className="postCtn">
+        <div className="posttCtn">
           <h1>
             {movie.Title} {movie.Year}
           </h1>

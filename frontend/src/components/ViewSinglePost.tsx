@@ -39,6 +39,8 @@ export const ViewSinglePost = () => {
           setLiked(false);
         }
       });
+
+    window.scrollTo(0, 80);
   }, []);
 
   let date = new Date(post.date);
@@ -81,7 +83,7 @@ export const ViewSinglePost = () => {
             <span>{post.comments.length} comments</span>¨
             {post.comments.map((c, i) => {
               return (
-                <div className="comment">
+                <div className="comment" key={i}>
                   <div className="icon2">
                     <img src="/svg/person.svg"></img>
                     <span>{c["user"]}</span>
