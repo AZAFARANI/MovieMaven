@@ -99,6 +99,31 @@
     width: 100%;
     display: flex;
     justify-content: center;
+
+    .postComment {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+
+      margin-top: 20px;
+
+      #cancel {
+        color: rgb(171, 171, 255);
+        font-size: 0.9rem;
+        text-decoration: underline;
+        margin-top: 15px;
+        cursor: pointer;
+      }
+
+      input {
+        border: solid 1px black;
+        border-radius: 5px;
+        height: 2rem;
+        width: 80%;
+      }
+    }
+
     .icon {
       width: 100%;
       display: flex;

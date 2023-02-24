@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import IpostResponse from "../models/response/IpostResponse";
 import MovieExtended from "../models/response/MovieExtended";
@@ -18,6 +18,8 @@ export const ViewSinglePost = () => {
     comments: [],
   });
   const [liked, setLiked] = useState<boolean>();
+  const [comment, setComment] = useState<string>("");
+  const [showComment, setShowComment] = useState<boolean>(false);
 
   let params = useParams();
 
@@ -86,6 +88,38 @@ export const ViewSinglePost = () => {
       });
   };
 
+  const changeShowComment = () => {
+    setShowComment(!showComment);
+  };
+
+  const setCommentValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setComment(e.target.value);
+    console.log(comment);
+  };
+
+  const postComment = () => {
+    let value = {
+      user: Cookies.get("user")!,
+      content: comment,
+      date: new Date().toLocaleDateString(),
+    };
+    axios
+      .put("http://localhost:8000/post/" + params.id + "/comment", value, {
+        headers: {
+          "auth-token": Cookies.get("token")!,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setShowComment(!showComment);
+        let tempComment: any = { ...post };
+
+        tempComment.comments.push(value);
+
+        setPost(tempComment);
+      });
+  };
+
   let date = new Date(post.date);
 
   return (
@@ -121,28 +155,42 @@ export const ViewSinglePost = () => {
         </div>
 
         <div className="comments">
-          <div className="icon">
-            <img src="/svg/chat-dots.svg"></img>
-            <span>{post.comments.length} comments</span>¨
-            {post.comments.map((c, i) => {
-              return (
-                <div className="comment" key={i}>
-                  <div className="icon2">
-                    <img src="/svg/person.svg"></img>
-                    <span>{c["user"]}</span>
-                  </div>
-                  <div className="cnt">
-                    <span>{c["content"]}</span>
-                  </div>
+          {!showComment ? (
+            <div className="icon">
+              <img src="/svg/chat-dots.svg"></img>
+              <span>{post.comments.length} comments</span>¨
+              {post.comments.map((c, i) => {
+                return (
+                  <div className="comment" key={i}>
+                    <div className="icon2">
+                      <img src="/svg/person.svg"></img>
+                      <span>{c["user"]}</span>
+                    </div>
+                    <div className="cnt">
+                      <span>{c["content"]}</span>
+                    </div>
 
-                  <div className="cnt">
-                    <span>{c["date"]}</span>
+                    <div className="cnt">
+                      <span>{c["date"]}</span>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-            <button>Post comment</button>
-          </div>
+                );
+              })}
+              <button onClick={changeShowComment}>Post comment</button>
+            </div>
+          ) : (
+            <div className="postComment">
+              <input
+                onChange={setCommentValue}
+                type="text"
+                placeholder="enter your comment here..."
+              ></input>
+              <button onClick={postComment}>Post</button>
+              <span onClick={changeShowComment} id="cancel">
+                cancel
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </>
