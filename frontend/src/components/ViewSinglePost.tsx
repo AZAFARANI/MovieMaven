@@ -1,3 +1,4 @@
+import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -43,6 +44,48 @@ export const ViewSinglePost = () => {
     window.scrollTo(0, 80);
   }, []);
 
+  const likePost = () => {
+    let like = {
+      user: Cookies.get("user")!,
+    };
+
+    axios
+      .put("http://localhost:8000/post/" + params.id + "/like", like, {
+        headers: {
+          "auth-token": Cookies.get("token")!,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setLiked(!liked);
+        let tempLike: any = { ...post };
+        tempLike.likes.push({ user: Cookies.get("user")! });
+      });
+  };
+
+  const unlikePost = () => {
+    let unlike = {
+      user: Cookies.get("user")!,
+    };
+
+    axios
+      .put("http://localhost:8000/post/" + params.id + "/unlike", unlike, {
+        headers: {
+          "auth-token": Cookies.get("token")!,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        setLiked(!liked);
+        let tempUnlike: [] = [...post.likes];
+        let index = tempUnlike.findIndex((l) => l["user"] === unlike.user);
+        tempUnlike.splice(index, 1);
+        let tempPost = { ...post };
+        tempPost.likes = tempUnlike;
+        setPost(tempPost);
+      });
+  };
+
   let date = new Date(post.date);
 
   return (
@@ -63,9 +106,9 @@ export const ViewSinglePost = () => {
         <div className="likesCtn">
           <div className="like">
             {liked ? (
-              <img src="/svg/heart-fill.svg"></img>
+              <img onClick={unlikePost} src="/svg/heart-fill.svg"></img>
             ) : (
-              <img src="/svg/heart.svg"></img>
+              <img onClick={likePost} src="/svg/heart.svg"></img>
             )}
             <span>{post.likes.length} likes</span>
           </div>
