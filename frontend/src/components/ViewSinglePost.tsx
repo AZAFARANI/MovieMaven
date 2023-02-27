@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import IpostResponse from "../models/response/IpostResponse";
 import MovieExtended from "../models/response/MovieExtended";
 import "../style/singlePost.scss";
+import { EditPost } from "./EditPost";
 
 export const ViewSinglePost = () => {
   const [post, setPost] = useState<IpostResponse>({
@@ -20,6 +21,8 @@ export const ViewSinglePost = () => {
   const [liked, setLiked] = useState<boolean>();
   const [comment, setComment] = useState<string>("");
   const [showComment, setShowComment] = useState<boolean>(false);
+  const [showEdit, setShowEdit] = useState<boolean>();
+  const [showInput, setShowInput] = useState<boolean>(false);
 
   let params = useParams();
 
@@ -40,6 +43,12 @@ export const ViewSinglePost = () => {
           setLiked(true);
         } else {
           setLiked(false);
+        }
+
+        if (res.post.userName === Cookies.get("user")) {
+          setShowEdit(true);
+        } else {
+          setShowEdit(false);
         }
       });
 
@@ -120,23 +129,40 @@ export const ViewSinglePost = () => {
       });
   };
 
+  const changeShowInput = () => {
+    setShowInput(!showInput);
+  };
+
+  const edit = (newPost: string) => {
+    let tempPost = { ...post };
+    tempPost.content = newPost;
+    setPost(tempPost);
+    setShowInput(!showInput);
+  };
+
   let date = new Date(post.date);
 
   return (
     <>
       <div className="postCtn">
+        {showEdit ? (
+          <div className="editSection">
+            <img onClick={changeShowInput} src="/svg/pencil-square.svg"></img>
+            <img src="/svg/trash.svg"></img>
+          </div>
+        ) : (
+          <></>
+        )}
         <div className="authorCtn">
           <img src="/svg/person-circle.svg"></img>
           <h1>{post.userName}</h1>
         </div>
-
         <div className="titleCtn">
           <h1>{post.title}</h1>
         </div>
         <div className="imgCtn">
           <img src={post.imageUrl}></img>
         </div>
-
         <div className="likesCtn">
           <div className="like">
             {liked ? (
@@ -149,49 +175,61 @@ export const ViewSinglePost = () => {
 
           <span>{date.toLocaleDateString()}</span>
         </div>
+        {!showInput ? (
+          <div className="content">
+            <span>{post.content}</span>
+          </div>
+        ) : (
+          <></>
+        )}
+        {!showInput ? (
+          <div className="comments">
+            {!showComment ? (
+              <div className="icon">
+                <img src="/svg/chat-dots.svg"></img>
+                <span>{post.comments.length} comments</span>
+                {post.comments.map((c, i) => {
+                  return (
+                    <div className="comment" key={i}>
+                      <div className="icon2">
+                        <img src="/svg/person.svg"></img>
+                        <span>{c["user"]}</span>
+                      </div>
+                      <div className="cnt">
+                        <span>{c["content"]}</span>
+                      </div>
 
-        <div className="content">
-          <span>{post.content}</span>
-        </div>
+                      <div className="cnt">
+                        <span>{c["date"]}</span>
+                      </div>
+                    </div>
+                  );
+                })}
+                <button onClick={changeShowComment}>Post comment</button>
+              </div>
+            ) : (
+              <div className="postComment">
+                <input
+                  onChange={setCommentValue}
+                  type="text"
+                  placeholder="enter your comment here..."
+                ></input>
+                <button onClick={postComment}>Post</button>
+                <span onClick={changeShowComment} id="cancel">
+                  cancel
+                </span>
+              </div>
+            )}
+          </div>
+        ) : (
+          <></>
+        )}
 
-        <div className="comments">
-          {!showComment ? (
-            <div className="icon">
-              <img src="/svg/chat-dots.svg"></img>
-              <span>{post.comments.length} comments</span>¨
-              {post.comments.map((c, i) => {
-                return (
-                  <div className="comment" key={i}>
-                    <div className="icon2">
-                      <img src="/svg/person.svg"></img>
-                      <span>{c["user"]}</span>
-                    </div>
-                    <div className="cnt">
-                      <span>{c["content"]}</span>
-                    </div>
-
-                    <div className="cnt">
-                      <span>{c["date"]}</span>
-                    </div>
-                  </div>
-                );
-              })}
-              <button onClick={changeShowComment}>Post comment</button>
-            </div>
-          ) : (
-            <div className="postComment">
-              <input
-                onChange={setCommentValue}
-                type="text"
-                placeholder="enter your comment here..."
-              ></input>
-              <button onClick={postComment}>Post</button>
-              <span onClick={changeShowComment} id="cancel">
-                cancel
-              </span>
-            </div>
-          )}
-        </div>
+        {post.content && showInput ? (
+          <EditPost post={post} editPost={edit}></EditPost>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

@@ -103,7 +103,6 @@ postRouter.put("/post/:id/edit", async (req, res) => {
         message: "Acces denied!",
       });
     } else {
-      postToEdit.title = post.title;
       postToEdit.content = post.content;
 
       await postToEdit.save();
