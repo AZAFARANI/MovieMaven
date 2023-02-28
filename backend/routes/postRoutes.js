@@ -120,7 +120,7 @@ postRouter.put("/post/:id/edit", async (req, res) => {
 
 postRouter.delete("/post/:id/delete", async (req, res) => {
   const token = req.headers["auth-token"];
-  const post = req.body;
+  const post = req.body.post;
   const user = await userModel.findOne({ userName: post.userName }).lean();
 
   const postToDelete = await postModel.findOne({ _id: req.params.id });

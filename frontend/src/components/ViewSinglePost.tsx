@@ -1,10 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import IpostResponse from "../models/response/IpostResponse";
 import MovieExtended from "../models/response/MovieExtended";
 import "../style/singlePost.scss";
+import { DeletePost } from "./DeletePost";
 import { EditPost } from "./EditPost";
 
 export const ViewSinglePost = () => {
@@ -23,8 +24,10 @@ export const ViewSinglePost = () => {
   const [showComment, setShowComment] = useState<boolean>(false);
   const [showEdit, setShowEdit] = useState<boolean>();
   const [showInput, setShowInput] = useState<boolean>(false);
+  const [showDelete, setShowDelete] = useState<boolean>(false);
 
   let params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:8000/post/" + params.id, {
@@ -140,6 +143,15 @@ export const ViewSinglePost = () => {
     setShowInput(!showInput);
   };
 
+  const ShowdeletePost = () => {
+    setShowDelete(!showDelete);
+  };
+
+  const deletePost = () => {
+    setShowDelete(!showDelete);
+    navigate("/posts");
+  };
+
   let date = new Date(post.date);
 
   return (
@@ -148,7 +160,7 @@ export const ViewSinglePost = () => {
         {showEdit ? (
           <div className="editSection">
             <img onClick={changeShowInput} src="/svg/pencil-square.svg"></img>
-            <img src="/svg/trash.svg"></img>
+            <img onClick={ShowdeletePost} src="/svg/trash.svg"></img>
           </div>
         ) : (
           <></>
@@ -227,6 +239,12 @@ export const ViewSinglePost = () => {
 
         {post.content && showInput ? (
           <EditPost post={post} editPost={edit}></EditPost>
+        ) : (
+          <></>
+        )}
+
+        {showDelete && post ? (
+          <DeletePost post={post} delete={deletePost}></DeletePost>
         ) : (
           <></>
         )}

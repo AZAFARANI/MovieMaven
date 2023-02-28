@@ -8,7 +8,6 @@ import "../style/Posts.scss";
 export const Posts = () => {
   const navigate = useNavigate();
   const [posts, setposts] = useState<IpostResponse[]>([]);
-  console.log(posts);
   useEffect(() => {
     checkCookie();
   }, []);
@@ -26,7 +25,6 @@ export const Posts = () => {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
           setposts(res.posts);
         });
     }
