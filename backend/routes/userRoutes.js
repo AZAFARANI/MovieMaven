@@ -106,7 +106,7 @@ function verifyToken(req, res, next) {
 userRouter.get("/user/:id", verifyToken, async (req, res) => {
   try {
     const user = await UserModel.findOne({ userName: req.params.id }).lean();
-
+    console.log(user, req.params.id);
     return res.json({
       success: true,
       user: user,

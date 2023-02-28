@@ -1,0 +1,46 @@
+@import "./mixin";
+
+.userProfileCtn {
+  width: 90%;
+  padding: 50px 20px;
+  background: #0f2027;
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #0d1215, #203a43, #0e1517);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  margin: 0 auto;
+  box-shadow: 1px 1px 50px #00000059;
+  border-radius: 10px;
+
+  margin-top: 30px;
+
+  .userImage {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    border: solid 1px white;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.485);
+      border-radius: 100%;
+    }
+  }
+
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    h1 {
+      color: white;
+    }
+    span {
+      color: white;
+    }
+  }
+}

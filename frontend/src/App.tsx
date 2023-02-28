@@ -10,6 +10,7 @@ import { Posts } from "./components/Posts";
 import { SelectMovie } from "./components/SelectMovie";
 import { CreatePost } from "./components/CreatePost";
 import { ViewSinglePost } from "./components/ViewSinglePost";
+import { UserProfile } from "./components/UserProfile";
 
 function App() {
   const go = () => {
@@ -49,6 +50,7 @@ function App() {
           <Route path="/selectMovie" element={<SelectMovie />}></Route>
           <Route path="/CreatePost/:id" element={<CreatePost />}></Route>
           <Route path="/post/:id" element={<ViewSinglePost />}></Route>
+          <Route path="/user/:id" element={<UserProfile />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
       </Routes>

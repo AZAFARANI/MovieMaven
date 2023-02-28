@@ -89,7 +89,6 @@ export const ViewSinglePost = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         setLiked(!liked);
         let tempUnlike: [] = [...post.likes];
         let index = tempUnlike.findIndex((l) => l["user"] === unlike.user);
