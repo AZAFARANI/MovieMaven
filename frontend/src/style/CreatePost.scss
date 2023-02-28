@@ -4,7 +4,7 @@
   //   background-image: linear-gradient(to top, #f43b47 0%, #453a94 100%);
   //   background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
 
-  padding: 0 5%;
+  padding: 5%;
   display: flex;
   flex-direction: column;
 
@@ -20,6 +20,9 @@
     background: #0f2027;
     background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
     background: linear-gradient(to right, #0d1215, #203a43, #0e1517);
+    border-radius: 10px;
+    box-shadow: 1px 1px 50px #00000059;
+
     margin: 0 auto;
 
     @include laptop {
@@ -100,6 +103,9 @@
     padding: 0px 10px;
     margin-top: 40px;
 
+    h1 {
+      color: white;
+    }
     textarea {
       width: 90%;
       height: 300px;

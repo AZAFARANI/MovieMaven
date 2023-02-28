@@ -36,7 +36,7 @@ export const Posts = () => {
 
   return (
     <>
-      <div>
+      <div className="postsCnt1">
         <div className="heading">
           <div className="h1">
             <h1>All reviews</h1>
@@ -57,7 +57,8 @@ export const Posts = () => {
             </div>
           </div>
         </div>
-        <div className="postsCtn">{html}</div>
+
+        <div className="postsCtn2">{html}</div>
       </div>
     </>
   );

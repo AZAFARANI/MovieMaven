@@ -3,6 +3,10 @@
 .post {
   width: 90%;
 
+  @include tablet {
+    width: 300px !important;
+  }
+
   display: flex;
   flex-direction: column;
   gap: 10px;

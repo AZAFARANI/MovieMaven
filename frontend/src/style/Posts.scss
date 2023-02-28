@@ -1,5 +1,11 @@
 @import "./mixin";
-body {
+.postsCnt1 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+
   .heading {
     width: 100%;
     display: flex;
@@ -83,29 +89,23 @@ body {
     }
   }
 
-  .postsCtn {
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 50px;
-    overflow: scroll;
+  .postsCtn2 {
     display: flex;
-
-    margin: 0 auto;
-
-    justify-content: center;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
 
     @include tablet {
-      width: 85%;
-      justify-content: space-between;
-      padding: 5%;
+      flex-wrap: wrap;
+      flex-direction: row;
+      max-width: 640px;
       gap: 40px;
+      align-items: unset;
     }
 
     @include laptop {
-      width: 85%;
-      gap: 37px;
-      justify-content: flex-start;
-      padding-left: 6% !important;
+      gap: 40px;
+      max-width: 980px;
     }
   }
 }
