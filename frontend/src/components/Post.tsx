@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import IpostResponse from "../models/response/IpostResponse";
 import "../style/Post.scss";
 
@@ -8,15 +8,17 @@ interface IpostProps {
 
 export const Post = (props: IpostProps) => {
   let date = new Date(props.post.date);
+  const navigate = useNavigate();
+
+  const readPost = () => {
+    navigate("/post" + "/" + props.post._id);
+  };
 
   return (
     <>
-      <div className="post">
+      <div onClick={readPost} className="post">
         <div className="imgCtn">
-          <Link to={"/post/" + props.post._id}>
-            {" "}
-            <img src={props.post.imageUrl}></img>
-          </Link>
+          <img src={props.post.imageUrl}></img>
         </div>
         <div className="authorCtn">
           <div className="iconCtn">

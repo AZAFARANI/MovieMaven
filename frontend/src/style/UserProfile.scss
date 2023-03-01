@@ -27,14 +27,21 @@
     }
   }
 
+  h1 {
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  #reviewsHeading {
+    margin-top: 10px;
+  }
+
   .userInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    h1 {
-      color: white;
-    }
+
     span {
       color: white;
     }

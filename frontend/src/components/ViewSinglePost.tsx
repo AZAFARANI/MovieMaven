@@ -151,6 +151,10 @@ export const ViewSinglePost = () => {
     navigate("/posts");
   };
 
+  const goToUser = () => {
+    navigate("/user" + "/" + post.userName);
+  };
+
   let date = new Date(post.date);
 
   return (
@@ -164,7 +168,7 @@ export const ViewSinglePost = () => {
         ) : (
           <></>
         )}
-        <div className="authorCtn">
+        <div onClick={goToUser} className="authorCtn">
           <img src="/svg/person-circle.svg"></img>
           <h1>{post.userName}</h1>
         </div>
@@ -207,7 +211,7 @@ export const ViewSinglePost = () => {
                         <span>{c["user"]}</span>
                       </div>
                       <div className="cnt">
-                        <span>{c["content"]}</span>
+                        <span>” {c["content"]} ”</span>
                       </div>
 
                       <div className="cnt">

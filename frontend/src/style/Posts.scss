@@ -80,9 +80,14 @@
           height: 2rem;
           border: none;
           border-bottom: solid 1px grey;
+          border-radius: 5px;
 
           @include laptop {
             width: 50%;
+          }
+
+          @include desktop {
+            width: 30%;
           }
         }
       }
@@ -94,6 +99,7 @@
     flex-direction: column;
     gap: 40px;
     align-items: center;
+    margin-top: 10px;
 
     @include tablet {
       flex-wrap: wrap;
@@ -106,6 +112,10 @@
     @include laptop {
       gap: 40px;
       max-width: 980px;
+    }
+
+    @include desktop {
+      max-width: 1320px;
     }
   }
 }

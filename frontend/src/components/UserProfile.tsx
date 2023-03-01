@@ -72,15 +72,16 @@ export const UserProfile = () => {
       <div className="postsCnt1">
         <div className="userProfileCtn">
           <div className="userImage">
-            <img src="/images/person-4.png"></img>
+            <img src="/images/person.jpg"></img>
           </div>
 
           <div className="userInfo">
             <h1>Username: {user?.userName}</h1>
-            <span>Email: {user?.email}</span>
-            <span>Member since: {user?.registered}</span>
+            <h1>Email: {user?.email}</h1>
+            <h1>Member since: {user?.registered}</h1>
           </div>
 
+          <h1 id="reviewsHeading">{posts.length} Reviews</h1>
           <div className="postsCtn2">{html}</div>
         </div>
       </div>

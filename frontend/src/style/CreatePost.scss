@@ -30,6 +30,11 @@
       width: 70%;
     }
 
+    @include desktop {
+      width: 50%;
+      gap: 50px;
+    }
+
     .infoDiv {
       width: 90%;
       margin: 0 auto;

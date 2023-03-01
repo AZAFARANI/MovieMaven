@@ -44,11 +44,11 @@ export const SelectMovie = () => {
       {isFetching ? <Loader></Loader> : <></>}
 
       {movies ? (
-        <div>
-          <div className="movies">
+        <div className="postsCnt1">
+          <div className="postsCtn2">
             {movies.map((movie, i) => {
               return (
-                <div key={i} className="movie">
+                <div key={i} className="post">
                   <Link to={"/CreatePost/" + movie.imdbID} key={movie.imdbID}>
                     <div className="imgCtn2">
                       <img src={movie.Poster}></img>
