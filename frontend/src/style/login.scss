@@ -1,3 +1,5 @@
+@import "./mixin";
+
 .container {
   width: 100%;
   height: 100vh;
@@ -7,9 +9,10 @@
   align-items: center;
   padding-top: 30%;
 
-  background-image: url("../assets/images/pexels-photo-3183183.jpeg");
-  background-position: center;
-  background-size: cover;
+  @include tablet {
+    padding-top: unset;
+    justify-content: center;
+  }
 
   .contentCtn {
     width: 90%;
@@ -19,7 +22,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
+
+    @include tablet {
+      width: 60%;
+    }
+
+    @include laptop {
+      width: 40%;
+    }
+
+    @include desktop {
+      width: 25%;
+    }
 
     h2 {
       font-size: 2rem;
@@ -32,7 +47,7 @@
 
     .btn {
       padding: 10px 25px;
-      margin-top: 30px;
+      margin-top: 10px;
       border-radius: 20px;
       background-color: #6767e0;
       color: white;
@@ -46,16 +61,17 @@
       flex-direction: column;
       align-items: center;
       width: 100%;
-      gap: 25px;
+      margin: 0 auto;
+      gap: 35px;
 
       .input {
         background-color: white;
         color: white;
         display: flex;
         flex-direction: column;
-        align-items: center;
 
-        width: 100%;
+        width: 70%;
+        margin: 0 auto;
         gap: 5px;
 
         label {
@@ -66,7 +82,7 @@
 
         input {
           height: 1.8rem;
-          width: 80%;
+          width: 100% !important;
           border: none;
           border-bottom: 1px solid rgb(156, 156, 156);
         }

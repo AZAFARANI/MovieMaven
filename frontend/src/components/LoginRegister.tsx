@@ -129,7 +129,11 @@ export const LoginRegister = () => {
               <div className="input">
                 {" "}
                 <label>Enter email</label>
-                <input onChange={emailInput} type="email"></input>
+                <input
+                  placeholder="Email..."
+                  onChange={emailInput}
+                  type="email"
+                ></input>
               </div>
             ) : (
               <></>
@@ -146,14 +150,14 @@ export const LoginRegister = () => {
                   ></input>
                 </>
               ) : (
-                <div className="input">
+                <>
                   <label> Select a username</label>
                   <input
                     onChange={setUser}
                     placeholder="Username..."
                     type="text"
                   ></input>
-                </div>
+                </>
               )}
             </div>
 
