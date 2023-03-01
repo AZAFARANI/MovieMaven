@@ -59,6 +59,7 @@ export const Posts = () => {
   };
 
   const setShowDatesTrue = () => {
+    setShowByLikes(false);
     let listt: IpostResponse[] = posts.sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
@@ -67,6 +68,7 @@ export const Posts = () => {
   };
 
   const mostLiked = () => {
+    setShowDates(false);
     let mostLikes = posts.sort((a, b) => b.likes.length - a.likes.length);
     setPostsByLikes(mostLikes);
     setShowByLikes(true);
