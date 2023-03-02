@@ -5,7 +5,11 @@ import IpostResponse from "../models/response/IpostResponse";
 import { Post } from "./Post";
 import "../style/Posts.scss";
 
-export const Posts = () => {
+interface IPostsProps {
+  checkCookie(boolean: boolean): void;
+}
+
+export const Posts = (props: IPostsProps) => {
   const navigate = useNavigate();
   const [posts, setposts] = useState<IpostResponse[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -22,6 +26,7 @@ export const Posts = () => {
     if (!Cookies.get("token")) {
       navigate("/login");
     } else {
+      props.checkCookie(true);
       fetch("http://localhost:8000/posts", {
         method: "get",
         headers: {

@@ -30,10 +30,10 @@ export const LoginRegister = () => {
       setLogin(false);
     }
 
-    if (Cookies.get("user")) {
+    if (Cookies.get("token")) {
       console.log("cookie!");
 
-      navigate("/");
+      navigate("/posts");
     }
   };
 
@@ -82,7 +82,7 @@ export const LoginRegister = () => {
           path: "/",
         });
 
-        navigate("/");
+        navigate("/posts");
       });
   };
 

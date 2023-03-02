@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./index.scss";
 import Cookies from "js-cookie";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./components/Home";
+
 import { LoginRegister } from "./components/LoginRegister";
 import { NotFound } from "./components/NotFound";
 import { Posts } from "./components/Posts";
@@ -11,8 +11,10 @@ import { SelectMovie } from "./components/SelectMovie";
 import { CreatePost } from "./components/CreatePost";
 import { ViewSinglePost } from "./components/ViewSinglePost";
 import { UserProfile } from "./components/UserProfile";
+import { LayoutNav } from "./components/LayoutNav";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const go = () => {
     let hej = {
       user: "newUser",
@@ -36,17 +38,31 @@ function App() {
       body: JSON.stringify(hej),
     })
       .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-      });
+      .then((res) => {});
+  };
+
+  const checkIfLoggedIn = (boolean: boolean) => {
+    if (boolean) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
   };
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />}>
+        <Route
+          path="/"
+          element={
+            <LayoutNav changeLogIn={checkIfLoggedIn} loggedIn={loggedIn} />
+          }
+        >
           <Route path="/login" element={<LoginRegister />}></Route>
           <Route path="/register" element={<LoginRegister />}></Route>
-          <Route path="/posts" element={<Posts />}></Route>
+          <Route
+            path="/posts"
+            element={<Posts checkCookie={checkIfLoggedIn} />}
+          ></Route>
           <Route path="/selectMovie" element={<SelectMovie />}></Route>
           <Route path="/CreatePost/:id" element={<CreatePost />}></Route>
           <Route path="/post/:id" element={<ViewSinglePost />}></Route>
