@@ -20,7 +20,9 @@ export const LayoutNav = (props: ILayoutProps) => {
   }, [props.loggedIn]);
 
   const logOut = () => {
-    setClick(!click);
+    if (click) {
+      setClick(!click);
+    }
     Cookies.remove("token");
     setLogged(false);
     props.changeLogIn(false);

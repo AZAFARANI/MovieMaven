@@ -16,6 +16,7 @@ export const LoginRegister = () => {
   const [cookie, setCookie] = useCookies(["user"]);
   const [email, setEmail] = useState<string>("");
   const [showError, setShowError] = useState<boolean>(false);
+  const [registerErr, setRegisterErr] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -110,6 +111,11 @@ export const LoginRegister = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+        if (!res.token) {
+          setRegisterErr(true);
+          return;
+        }
+
         Cookies.set("token", res.token, {
           expires: 1,
           secure: true,
@@ -125,6 +131,9 @@ export const LoginRegister = () => {
         });
 
         navigate("/posts");
+      })
+      .catch(() => {
+        setRegisterErr(true);
       });
   };
 
@@ -204,7 +213,15 @@ export const LoginRegister = () => {
             )}
 
             {showError ? (
-              <span id="errorSpan">Incorrect username or password!</span>
+              <span className="errorSpan">Incorrect username or password!</span>
+            ) : (
+              <></>
+            )}
+
+            {registerErr ? (
+              <span className="errorSpan">
+                Username or email already in use!
+              </span>
             ) : (
               <></>
             )}

@@ -79,6 +79,14 @@
       align-items: center;
       gap: 10px;
       padding: 10px 10px;
+
+      span {
+        color: black;
+      }
+    }
+
+    img {
+      border-radius: 5px 5px 0px 0px;
     }
   }
 }
