@@ -1,13 +1,14 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import IpostResponse from "../models/response/IpostResponse";
 import IUserResponse from "../models/response/IUserResponse";
 import "../style/UserProfile.scss";
 import { Post } from "./Post";
 
 export const UserProfile = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<IUserResponse>({
     _id: "",
     userName: "",
@@ -32,6 +33,9 @@ export const UserProfile = () => {
 
   const params = useParams();
   useEffect(() => {
+    if (!Cookies.get("token")) {
+      navigate("/login");
+    }
     axios
       .get("http://localhost:8000/user/" + params.id!, {
         headers: {

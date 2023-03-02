@@ -15,6 +15,7 @@ export const LoginRegister = () => {
   const [confirmPass, setConfirmPass] = useState<string>("");
   const [cookie, setCookie] = useCookies(["user"]);
   const [email, setEmail] = useState<string>("");
+  const [showError, setShowError] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,21 +69,25 @@ export const LoginRegister = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        Cookies.set("token", res.token, {
-          expires: 1,
-          secure: true,
-          sameSite: "strict",
-          path: "/",
-        });
+        if (!res.token) {
+          setShowError(!showError);
+        } else {
+          Cookies.set("token", res.token, {
+            expires: 1,
+            secure: true,
+            sameSite: "strict",
+            path: "/",
+          });
 
-        Cookies.set("user", res.user, {
-          expires: 1,
-          secure: true,
-          sameSite: "strict",
-          path: "/",
-        });
+          Cookies.set("user", res.user, {
+            expires: 1,
+            secure: true,
+            sameSite: "strict",
+            path: "/",
+          });
 
-        navigate("/posts");
+          navigate("/posts");
+        }
       });
   };
 
@@ -189,6 +194,12 @@ export const LoginRegister = () => {
               <span onClick={changeLogin}>
                 Already Have an account? Sign in!
               </span>
+            )}
+
+            {showError ? (
+              <span id="errorSpan">Incorrect username or password!</span>
+            ) : (
+              <></>
             )}
 
             {login ? (

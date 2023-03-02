@@ -30,6 +30,10 @@ export const ViewSinglePost = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!Cookies.get("token")) {
+      navigate("/login");
+    }
+
     fetch("http://localhost:8000/post/" + params.id, {
       method: "GET",
       headers: {

@@ -27,6 +27,9 @@ export const CreatePost = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!Cookies.get("token")) {
+      navigate("/login");
+    }
     setIsFetching(true);
     fetch("http://www.omdbapi.com/?apikey=488b984b&i=" + params.id)
       .then((qwert) => qwert.json())

@@ -1,5 +1,6 @@
-import { ChangeEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { ChangeEvent, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import IomdbResponse from "../models/response/IomdbResponse";
 import "../style/selectMovie.scss";
 import { Loader } from "./Loader";
@@ -8,6 +9,13 @@ export const SelectMovie = () => {
   const [movies, setMovies] = useState<IomdbResponse[]>([]);
   const [search, setSearch] = useState<string>("");
   const [isFetching, setIsFetching] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!Cookies.get("token")) {
+      navigate("/login");
+    }
+  }, []);
 
   const setSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
