@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 import "../style/layout.scss";
 
@@ -20,6 +20,7 @@ export const LayoutNav = (props: ILayoutProps) => {
   }, [props.loggedIn]);
 
   const logOut = () => {
+    setClick(!click);
     Cookies.remove("token");
     setLogged(false);
     props.changeLogIn(false);
@@ -39,9 +40,15 @@ export const LayoutNav = (props: ILayoutProps) => {
           {loggedIn ? (
             <>
               <div className="linksSection">
-                <span>Reviews</span>
-                <span>Create Review</span>
-                <span>My profile</span>
+                <Link to="/posts">
+                  <span>Reviews</span>
+                </Link>
+                <Link to="/selectMovie">
+                  <span>Create Review</span>
+                </Link>
+                <Link to={"/user/" + Cookies.get("user")}>
+                  <span>My profile</span>
+                </Link>
               </div>
 
               <button onClick={logOut}>Sign out</button>
@@ -80,11 +87,31 @@ export const LayoutNav = (props: ILayoutProps) => {
           </div>
 
           <div className="linksSection">
-            <span>Reviews</span>
-            <span>Create Review</span>
-            <span>My profile</span>
+            <Link
+              to="/posts"
+              onClick={() => {
+                setClick(!click);
+              }}
+            >
+              <span>Reviews</span>
+            </Link>
+            <Link
+              to="/selectMovie"
+              onClick={() => {
+                setClick(!click);
+              }}
+            >
+              <span>Create Review</span>
+            </Link>
+            <Link
+              onClick={() => {
+                setClick(!click);
+              }}
+              to={"/user/" + Cookies.get("user")}
+            >
+              <span>My profile</span>
+            </Link>
           </div>
-
           <div>
             <button onClick={logOut}>sign out</button>
           </div>

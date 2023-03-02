@@ -110,14 +110,21 @@ export const LoginRegister = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        Cookies.set("user", res.token, {
+        Cookies.set("token", res.token, {
           expires: 1,
           secure: true,
           sameSite: "strict",
           path: "/",
         });
 
-        navigate("/");
+        Cookies.set("user", res.user, {
+          expires: 1,
+          secure: true,
+          sameSite: "strict",
+          path: "/",
+        });
+
+        navigate("/posts");
       });
   };
 

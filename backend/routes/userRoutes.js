@@ -24,7 +24,7 @@ userRouter.post("/register", async (req, res) => {
         userName,
         email,
         password: hashedPassword(password),
-        registered: Date.now().toString(),
+        registered: new Date().toLocaleDateString(),
       });
 
       await newUser.save();
