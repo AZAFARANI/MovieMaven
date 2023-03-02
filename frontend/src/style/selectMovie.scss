@@ -49,6 +49,8 @@
       height: 2rem;
       border: solid 1px grey;
       border-radius: 5px;
+      border-radius: 15px;
+      padding-left: 5px;
     }
 
     button {
@@ -59,6 +61,11 @@
       background-color: rgb(46, 46, 46);
       color: white;
       margin-top: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: black;
+      color: white;
     }
   }
 }

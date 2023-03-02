@@ -55,7 +55,7 @@ export const ViewSinglePost = () => {
         }
       });
 
-    window.scrollTo(0, 80);
+    window.scrollTo(0, 100);
   }, []);
 
   const likePost = () => {
@@ -160,6 +160,13 @@ export const ViewSinglePost = () => {
   return (
     <>
       <div className="postCtn">
+        <img
+          onClick={() => {
+            navigate("/posts");
+          }}
+          id="arrow"
+          src="/svg/arrow-left.svg"
+        ></img>
         {showEdit ? (
           <div className="editSection">
             <img onClick={changeShowInput} src="/svg/pencil-square.svg"></img>
