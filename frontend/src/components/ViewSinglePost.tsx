@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import IpostResponse from "../models/response/IpostResponse";
 import MovieExtended from "../models/response/MovieExtended";
@@ -27,6 +27,8 @@ export const ViewSinglePost = () => {
   const [showDelete, setShowDelete] = useState<boolean>(false);
 
   let params = useParams();
+  const ref = useRef<null | HTMLDivElement>(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -136,7 +138,12 @@ export const ViewSinglePost = () => {
   };
 
   const changeShowInput = () => {
-    setShowInput(!showInput);
+    if (!showInput) {
+      setShowInput(true);
+      ref.current?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setShowInput(false);
+    }
   };
 
   const edit = (newPost: string) => {
@@ -166,7 +173,7 @@ export const ViewSinglePost = () => {
       <div className="postCtn">
         <img
           onClick={() => {
-            navigate("/posts");
+            navigate(-1);
           }}
           id="arrow"
           src="/svg/arrow-left.svg"
@@ -174,6 +181,7 @@ export const ViewSinglePost = () => {
         {showEdit ? (
           <div className="editSection">
             <img onClick={changeShowInput} src="/svg/pencil-square.svg"></img>
+
             <img onClick={ShowdeletePost} src="/svg/trash.svg"></img>
           </div>
         ) : (
@@ -189,7 +197,7 @@ export const ViewSinglePost = () => {
         <div className="imgCtn">
           <img src={post.imageUrl}></img>
         </div>
-        <div className="likesCtn">
+        <div ref={ref} className="likesCtn">
           <div className="like">
             {liked ? (
               <img onClick={unlikePost} src="/svg/heart-fill.svg"></img>
@@ -218,7 +226,7 @@ export const ViewSinglePost = () => {
                   return (
                     <div className="comment" key={i}>
                       <div className="icon2">
-                        <img src="/svg/person.svg"></img>
+                        <img src="/svg/person copy.svg"></img>
                         <span>{c["user"]}</span>
                       </div>
                       <div className="cnt">
@@ -259,6 +267,14 @@ export const ViewSinglePost = () => {
 
         {showDelete && post ? (
           <DeletePost post={post} delete={deletePost}></DeletePost>
+        ) : (
+          <></>
+        )}
+
+        {showInput ? (
+          <span onClick={changeShowInput} className="canceledit">
+            cancel
+          </span>
         ) : (
           <></>
         )}

@@ -73,6 +73,13 @@ export const CreatePost = () => {
       {isFetching ? <Loader></Loader> : <></>}
       <div className="bodyCtn">
         <div className="posttCtn">
+          <img
+            onClick={() => {
+              navigate(-1);
+            }}
+            id="arrow"
+            src="/svg/arrow-left.svg"
+          ></img>
           <h1>
             {movie.Title} {movie.Year}
           </h1>

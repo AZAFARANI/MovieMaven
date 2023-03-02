@@ -114,38 +114,48 @@ export const Posts = (props: IPostsProps) => {
             </Link>
           </div>
 
-          <div className="filter">
-            <h2>Filter reviews by:</h2>
-            <div className="filterOptions">
-              {!showByLikes ? (
-                <div onClick={mostLiked} className="optionItem">
-                  Most liked
-                </div>
-              ) : (
-                <div onClick={setShowLikesFalse} className="optionItem clicked">
-                  Most liked
-                </div>
-              )}
+          {posts.length > 0 ? (
+            <div className="filter">
+              <h2>Filter reviews by:</h2>
+              <div className="filterOptions">
+                {!showByLikes ? (
+                  <div onClick={mostLiked} className="optionItem">
+                    Most liked
+                  </div>
+                ) : (
+                  <div
+                    onClick={setShowLikesFalse}
+                    className="optionItem clicked"
+                  >
+                    Most liked
+                  </div>
+                )}
 
-              {!showByDates ? (
-                <div onClick={setShowDatesTrue} className="optionItem">
-                  Most recent
-                </div>
-              ) : (
-                <div onClick={setShowDatesFalse} className="optionItem clicked">
-                  Most recent
-                </div>
-              )}
-            </div>
+                {!showByDates ? (
+                  <div onClick={setShowDatesTrue} className="optionItem">
+                    Most recent
+                  </div>
+                ) : (
+                  <div
+                    onClick={setShowDatesFalse}
+                    className="optionItem clicked"
+                  >
+                    Most recent
+                  </div>
+                )}
+              </div>
 
-            <div className="filterSearch">
-              <input
-                onChange={setSearch}
-                placeholder="Search reviews..."
-                type="text"
-              ></input>
+              <div className="filterSearch">
+                <input
+                  onChange={setSearch}
+                  placeholder="Search reviews..."
+                  type="text"
+                ></input>
+              </div>
             </div>
-          </div>
+          ) : (
+            <></>
+          )}
         </div>
 
         {!searchTerm && !showByDates && !showByLikes ? (
@@ -171,6 +181,18 @@ export const Posts = (props: IPostsProps) => {
           <></>
         )}
       </div>
+
+      {posts.length < 1 ? (
+        <div className="nopostsyet">
+          <div className="notfoundCnt">
+            <img src="/images/clipboard.jpg"></img>
+          </div>
+
+          <h1>No reviews yet!</h1>
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
