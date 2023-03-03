@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./index.scss";
 import Cookies from "js-cookie";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 
 import { LoginRegister } from "./components/LoginRegister";
 import { NotFound } from "./components/NotFound";
@@ -15,31 +21,6 @@ import { LayoutNav } from "./components/LayoutNav";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
-  const go = () => {
-    let hej = {
-      user: "newUser",
-      content: "hello!",
-      date: Date.now().toString(),
-
-      // title: "edited post!",
-      // content: "this post was edited!",
-      // imageUrl: "k",
-      // likes: [],
-      // comments: [],
-    };
-
-    fetch("http://localhost:8000/post/63e36894cac009e73bdf7543/comment", {
-      method: "PUT", // or 'PUT'
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWI0ODJhNGZlYWViZThlMDc5NDkxZiIsImlhdCI6MTY3NjYyNzE4OSwiZXhwIjoxNjc2NzEzNTg5fQ.qmV4cVeAXbXlcM-ChjJ-CsdBfYEnjn0m1JCUDRHJXss",
-      },
-      body: JSON.stringify(hej),
-    })
-      .then((res) => res.json())
-      .then((res) => {});
-  };
 
   const checkIfLoggedIn = (boolean: boolean) => {
     if (boolean) {

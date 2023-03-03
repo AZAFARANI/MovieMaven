@@ -61,8 +61,6 @@ postRouter.get("/post/:id", verifyToken, async (req, res) => {
 postRouter.post("/newpost", verifyToken, async (req, res) => {
   const { userName, title, content, imageUrl } = req.body;
 
-  console.log(req.body);
-
   const newPost = new PostModel({
     userName,
     title,
@@ -97,7 +95,6 @@ postRouter.put("/post/:id/edit", async (req, res) => {
     const checkId = user._id.toString();
 
     if (userId !== checkId) {
-      console.log(userId, user._id);
       return res.status(401).json({
         success: false,
         message: "Acces denied!",
@@ -111,7 +108,6 @@ postRouter.put("/post/:id/edit", async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err);
     return res.status(400).json({
       message: "invalid token!",
     });
@@ -135,7 +131,6 @@ postRouter.delete("/post/:id/delete", async (req, res) => {
     const checkId = user._id.toString();
 
     if (userId !== checkId) {
-      console.log(userId, user._id);
       return res.status(401).json({
         success: false,
         message: "Acces denied!",
@@ -148,7 +143,6 @@ postRouter.delete("/post/:id/delete", async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err);
     res.send(400);
   }
 });
@@ -210,7 +204,6 @@ postRouter.put("/post/:id/unlike", async (req, res) => {
         });
       }
     } catch (err) {
-      console.log(err);
       res.sendStatus(400);
     }
   } else {

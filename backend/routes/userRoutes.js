@@ -12,8 +12,6 @@ userRouter.get("/hello", (req, res) => {
 userRouter.post("/register", async (req, res) => {
   const { userName, email, password, confirmPassword } = req.body;
 
-  console.log(userName, email, password, confirmPassword);
-
   UserModel.findOne({ $or: [{ userName }, { email }] }, async (err, user) => {
     if (user) {
       res.send("Username or email already exists");
