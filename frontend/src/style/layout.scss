@@ -10,16 +10,16 @@
 
   button {
     color: black;
-    padding: 10px 20px;
+    padding: 10px 15px;
     background-color: white;
     border-radius: 20px;
     border: none;
-    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.269);
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.36);
     cursor: pointer;
   }
 
   button:hover {
-    background-color: rgb(33, 31, 31);
+    background-color: rgb(29, 27, 27);
     color: white;
     transition: 0.2s ease-in-out;
   }

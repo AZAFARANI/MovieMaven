@@ -18,10 +18,9 @@ export const LayoutNav = (props: ILayoutProps) => {
   useEffect(() => {
     setLogged(props.loggedIn);
 
+    console.log("nav is going");
     if (!Cookies.get("token")) {
       navigate("/login");
-    } else {
-      navigate("/posts");
     }
   }, [props.loggedIn]);
 

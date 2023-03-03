@@ -62,27 +62,36 @@ export const LoginRegister = () => {
       password: password,
     };
 
-    axios.post("http://localhost:8000/login", user).then((res: any) => {
-      if (!res.data.token) {
-        setShowError(!showError);
-      } else {
-        Cookies.set("token", res.data.token, {
-          expires: 1,
-          secure: true,
-          sameSite: "strict",
-          path: "/",
-        });
+    axios
+      .post("http://localhost:8000/login", user)
+      .then((res: any) => {
+        if (!res.data.token || res.data.success === "false") {
+          setShowError(!showError);
+          console.log("mleöaöle");
+        } else {
+          Cookies.set("token", res.data.token, {
+            expires: 1,
+            secure: true,
+            sameSite: "strict",
+            path: "/",
+          });
 
-        Cookies.set("user", res.data.user, {
-          expires: 1,
-          secure: true,
-          sameSite: "strict",
-          path: "/",
-        });
+          Cookies.set("user", res.data.user, {
+            expires: 1,
+            secure: true,
+            sameSite: "strict",
+            path: "/",
+          });
 
-        navigate("/posts");
-      }
-    });
+          navigate("/posts");
+        }
+      })
+      .catch((res) => {
+        if (res.success === "false" || !res.token) {
+          setShowError(!showError);
+        }
+        console.log(res);
+      });
   };
 
   const registerUser = () => {
