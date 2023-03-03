@@ -64,7 +64,7 @@ export const LayoutNav = (props: ILayoutProps) => {
               onClick={() => {
                 setClick(!click);
               }}
-              src="/svg/chat-dots.svg"
+              src="/svg/list.svg"
             ></img>
           ) : (
             <></>
@@ -80,7 +80,7 @@ export const LayoutNav = (props: ILayoutProps) => {
             onClick={() => {
               setClick(!click);
             }}
-            src="/svg/chat-dots.svg"
+            src="/svg/list.svg"
           ></img>
 
           <div className="logoSection">

@@ -1,3 +1,4 @@
+import axios from "axios";
 import Cookies from "js-cookie";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,6 +12,10 @@ export const SelectMovie = () => {
   const [isFetching, setIsFetching] = useState<boolean>(false);
   const navigate = useNavigate();
 
+  interface ImovieResponse {
+    Search: IomdbResponse[];
+  }
+
   useEffect(() => {
     if (!Cookies.get("token")) {
       navigate("/login");
@@ -23,12 +28,13 @@ export const SelectMovie = () => {
 
   const fetchMovies = () => {
     setIsFetching(true);
-    fetch("http://www.omdbapi.com/?s=" + search + "&apikey=488b984b")
-      .then((qwert) => qwert.json())
-      .then((result: IomdbResponse) => {
+    axios
+      .get<IomdbResponse>(
+        "http://www.omdbapi.com/?s=" + search + "&apikey=488b984b"
+      )
+      .then((res) => {
+        setMovies(res.data.Search);
         setIsFetching(false);
-        console.log(result);
-        setMovies(result.Search);
       });
   };
   return (

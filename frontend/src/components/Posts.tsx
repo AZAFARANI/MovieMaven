@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import IpostResponse from "../models/response/IpostResponse";
 import { Post } from "./Post";
 import "../style/Posts.scss";
+import axios from "axios";
 
 interface IPostsProps {
   checkCookie(boolean: boolean): void;
@@ -27,16 +28,14 @@ export const Posts = (props: IPostsProps) => {
       navigate("/login");
     } else {
       props.checkCookie(true);
-      fetch("http://localhost:8000/posts", {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": Cookies.get("token")!,
-        },
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          setposts(res.posts);
+      axios
+        .get("http://localhost:8000/posts", {
+          headers: {
+            "auth-token": Cookies.get("token")!,
+          },
+        })
+        .then((res: any) => {
+          setposts(res.data.posts);
         });
     }
   };

@@ -1,4 +1,4 @@
-export default interface IpostResponse {
+export default interface Ipost {
   _id: string;
   userName: string;
   title: string;
@@ -7,4 +7,8 @@ export default interface IpostResponse {
   date: Date;
   likes: [];
   comments: [];
+}
+
+export interface IpostResponse {
+  post: Ipost;
 }

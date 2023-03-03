@@ -7,6 +7,7 @@ import Cookie from "js-cookie";
 
 import "../style/login.scss";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 export const LoginRegister = () => {
   const [login, setLogin] = useState<boolean>();
@@ -61,35 +62,27 @@ export const LoginRegister = () => {
       password: password,
     };
 
-    fetch("http://localhost:8000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (!res.token) {
-          setShowError(!showError);
-        } else {
-          Cookies.set("token", res.token, {
-            expires: 1,
-            secure: true,
-            sameSite: "strict",
-            path: "/",
-          });
+    axios.post("http://localhost:8000/login", user).then((res: any) => {
+      if (!res.data.token) {
+        setShowError(!showError);
+      } else {
+        Cookies.set("token", res.data.token, {
+          expires: 1,
+          secure: true,
+          sameSite: "strict",
+          path: "/",
+        });
 
-          Cookies.set("user", res.user, {
-            expires: 1,
-            secure: true,
-            sameSite: "strict",
-            path: "/",
-          });
+        Cookies.set("user", res.data.user, {
+          expires: 1,
+          secure: true,
+          sameSite: "strict",
+          path: "/",
+        });
 
-          navigate("/posts");
-        }
-      });
+        navigate("/posts");
+      }
+    });
   };
 
   const registerUser = () => {
@@ -102,28 +95,23 @@ export const LoginRegister = () => {
       confirmPassword: confirmPass,
     };
 
-    fetch("http://localhost:8000/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (!res.token) {
+    axios
+      .post("http://localhost:8000/register", user)
+
+      .then((res: any) => {
+        if (!res.data.token) {
           setRegisterErr(true);
           return;
         }
 
-        Cookies.set("token", res.token, {
+        Cookies.set("token", res.data.token, {
           expires: 1,
           secure: true,
           sameSite: "strict",
           path: "/",
         });
 
-        Cookies.set("user", res.user, {
+        Cookies.set("user", res.data.user, {
           expires: 1,
           secure: true,
           sameSite: "strict",

@@ -2,7 +2,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import IpostResponse from "../models/response/IpostResponse";
+import { IpostResponse } from "../models/response/IpostResponse";
+
 import MovieExtended from "../models/response/MovieExtended";
 import "../style/singlePost.scss";
 import { DeletePost } from "./DeletePost";
@@ -10,14 +11,16 @@ import { EditPost } from "./EditPost";
 
 export const ViewSinglePost = () => {
   const [post, setPost] = useState<IpostResponse>({
-    _id: "",
-    userName: "",
-    title: "",
-    content: "",
-    imageUrl: "",
-    date: new Date(),
-    likes: [],
-    comments: [],
+    post: {
+      _id: "",
+      userName: "",
+      title: "",
+      content: "",
+      imageUrl: "",
+      date: new Date(),
+      likes: [],
+      comments: [],
+    },
   });
   const [liked, setLiked] = useState<boolean>();
   const [comment, setComment] = useState<string>("");
@@ -35,18 +38,16 @@ export const ViewSinglePost = () => {
     if (!Cookies.get("token")) {
       navigate("/login");
     }
-
-    fetch("http://localhost:8000/post/" + params.id, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": Cookies.get("token")!,
-      },
-    })
-      .then((res) => res.json())
+    axios
+      .get<IpostResponse>("http://localhost:8000/post/" + params.id, {
+        headers: {
+          "auth-token": Cookies.get("token")!,
+        },
+      })
       .then((res) => {
-        setPost(res.post);
-        let likes: [] = res.post.likes;
+        console.log(res.data.post);
+        setPost(res.data);
+        let likes: [] = res.data.post.likes;
 
         if (likes.some((user) => user["user"] === Cookies.get("user"))) {
           setLiked(true);
@@ -54,7 +55,7 @@ export const ViewSinglePost = () => {
           setLiked(false);
         }
 
-        if (res.post.userName === Cookies.get("user")) {
+        if (res.data.post.userName === Cookies.get("user")) {
           setShowEdit(true);
         } else {
           setShowEdit(false);
@@ -79,7 +80,7 @@ export const ViewSinglePost = () => {
         console.log(res);
         setLiked(!liked);
         let tempLike: any = { ...post };
-        tempLike.likes.push({ user: Cookies.get("user")! });
+        tempLike.post.likes.push({ user: Cookies.get("user")! });
       });
   };
 
@@ -96,11 +97,11 @@ export const ViewSinglePost = () => {
       })
       .then((res) => {
         setLiked(!liked);
-        let tempUnlike: [] = [...post.likes];
+        let tempUnlike: [] = [...post.post.likes];
         let index = tempUnlike.findIndex((l) => l["user"] === unlike.user);
         tempUnlike.splice(index, 1);
         let tempPost = { ...post };
-        tempPost.likes = tempUnlike;
+        tempPost.post.likes = tempUnlike;
         setPost(tempPost);
       });
   };
@@ -131,7 +132,7 @@ export const ViewSinglePost = () => {
         setShowComment(!showComment);
         let tempComment: any = { ...post };
 
-        tempComment.comments.push(value);
+        tempComment.post.comments.push(value);
 
         setPost(tempComment);
       });
@@ -148,7 +149,7 @@ export const ViewSinglePost = () => {
 
   const edit = (newPost: string) => {
     let tempPost = { ...post };
-    tempPost.content = newPost;
+    tempPost.post.content = newPost;
     setPost(tempPost);
     setShowInput(!showInput);
   };
@@ -163,10 +164,10 @@ export const ViewSinglePost = () => {
   };
 
   const goToUser = () => {
-    navigate("/user" + "/" + post.userName);
+    navigate("/user" + "/" + post.post.userName);
   };
 
-  let date = new Date(post.date);
+  let date = new Date(post.post.date);
 
   return (
     <>
@@ -189,13 +190,13 @@ export const ViewSinglePost = () => {
         )}
         <div onClick={goToUser} className="authorCtn">
           <img src="/svg/person-circle.svg"></img>
-          <h1>{post.userName}</h1>
+          <h1>{post.post.userName}</h1>
         </div>
         <div className="titleCtn">
-          <h1>{post.title}</h1>
+          <h1>{post.post.title}</h1>
         </div>
         <div className="imgCtn">
-          <img src={post.imageUrl}></img>
+          <img src={post.post.imageUrl}></img>
         </div>
         <div ref={ref} className="likesCtn">
           <div className="like">
@@ -204,14 +205,14 @@ export const ViewSinglePost = () => {
             ) : (
               <img onClick={likePost} src="/svg/heart.svg"></img>
             )}
-            <span>{post.likes.length} likes</span>
+            <span>{post.post.likes.length} likes</span>
           </div>
 
           <span>{date.toLocaleDateString()}</span>
         </div>
         {!showInput ? (
           <div className="content">
-            <span>{post.content}</span>
+            <span>{post.post.content}</span>
           </div>
         ) : (
           <></>
@@ -221,8 +222,8 @@ export const ViewSinglePost = () => {
             {!showComment ? (
               <div className="icon">
                 <img src="/svg/chat-dots.svg"></img>
-                <span>{post.comments.length} comments</span>
-                {post.comments.map((c, i) => {
+                <span>{post.post.comments.length} comments</span>
+                {post.post.comments.map((c, i) => {
                   return (
                     <div className="comment" key={i}>
                       <div className="icon2">
@@ -259,14 +260,14 @@ export const ViewSinglePost = () => {
           <></>
         )}
 
-        {post.content && showInput ? (
-          <EditPost post={post} editPost={edit}></EditPost>
+        {post.post.content && showInput ? (
+          <EditPost post={post.post} editPost={edit}></EditPost>
         ) : (
           <></>
         )}
 
         {showDelete && post ? (
-          <DeletePost post={post} delete={deletePost}></DeletePost>
+          <DeletePost post={post.post} delete={deletePost}></DeletePost>
         ) : (
           <></>
         )}
