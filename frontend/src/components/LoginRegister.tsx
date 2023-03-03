@@ -83,7 +83,7 @@ export const LoginRegister = () => {
             path: "/",
           });
 
-          navigate("/posts");
+          navigate("/");
         }
       })
       .catch((res) => {
@@ -127,7 +127,7 @@ export const LoginRegister = () => {
           path: "/",
         });
 
-        navigate("/posts");
+        navigate("/");
       })
       .catch(() => {
         setRegisterErr(true);

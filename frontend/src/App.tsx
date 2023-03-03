@@ -41,7 +41,7 @@ function App() {
           <Route path="/login" element={<LoginRegister />}></Route>
           <Route path="/register" element={<LoginRegister />}></Route>
           <Route
-            path="/posts"
+            index
             element={<Posts checkCookie={checkIfLoggedIn} />}
           ></Route>
           <Route path="/selectMovie" element={<SelectMovie />}></Route>

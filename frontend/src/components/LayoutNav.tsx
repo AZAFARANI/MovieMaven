@@ -47,7 +47,7 @@ export const LayoutNav = (props: ILayoutProps) => {
           {loggedIn ? (
             <>
               <div className="linksSection">
-                <Link to="/posts">
+                <Link to="/">
                   <span>Reviews</span>
                 </Link>
                 <Link to="/selectMovie">
@@ -95,7 +95,7 @@ export const LayoutNav = (props: ILayoutProps) => {
 
           <div className="linksSection">
             <Link
-              to="/posts"
+              to="/"
               onClick={() => {
                 setClick(!click);
               }}

@@ -10,7 +10,7 @@ export const NotFound = () => {
         <span>The page you are looking for does not exist!</span>
         <button
           onClick={() => {
-            navigate("/posts");
+            navigate("/");
           }}
         >
           Home
