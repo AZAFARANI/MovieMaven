@@ -37,7 +37,7 @@ export const LayoutNav = (props: ILayoutProps) => {
   return (
     <>
       {!click ? (
-        <div className="nav">
+        <div id="layoutNav" className="nav">
           <div className="logo">
             <div className="logoSection">
               <h1 id="white">Movie</h1>
@@ -48,13 +48,13 @@ export const LayoutNav = (props: ILayoutProps) => {
             <>
               <div className="linksSection">
                 <Link to="/">
-                  <span>Reviews</span>
+                  <span id="extendedLinkReviews">Reviews</span>
                 </Link>
                 <Link to="/selectMovie">
-                  <span>Create Review</span>
+                  <span id="extendedLinkCreate">Create Review</span>
                 </Link>
                 <Link to={"/user/" + Cookies.get("user")}>
-                  <span>My profile</span>
+                  <span id="extendedLinkProfile">My profile</span>
                 </Link>
               </div>
 
@@ -68,6 +68,7 @@ export const LayoutNav = (props: ILayoutProps) => {
 
           {loggedIn ? (
             <img
+              id="navHamburger"
               onClick={() => {
                 setClick(!click);
               }}
@@ -102,7 +103,7 @@ export const LayoutNav = (props: ILayoutProps) => {
                 setClick(!click);
               }}
             >
-              <span>Reviews</span>
+              <span id="MobileNavLinkReviews">Reviews</span>
             </Link>
             <Link
               to="/selectMovie"
@@ -110,7 +111,7 @@ export const LayoutNav = (props: ILayoutProps) => {
                 setClick(!click);
               }}
             >
-              <span>Create Review</span>
+              <span id="MobileNavLinkCreate">Create Review</span>
             </Link>
             <Link
               onClick={() => {
@@ -118,11 +119,13 @@ export const LayoutNav = (props: ILayoutProps) => {
               }}
               to={"/user/" + Cookies.get("user")}
             >
-              <span>My profile</span>
+              <span id="MobileNavLinkProfile">My profile</span>
             </Link>
           </div>
           <div>
-            <button onClick={logOut}>sign out</button>
+            <button id="MobileNavSignOut" onClick={logOut}>
+              sign out
+            </button>
           </div>
         </div>
       ) : (
