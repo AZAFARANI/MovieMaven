@@ -58,7 +58,9 @@ export const LayoutNav = (props: ILayoutProps) => {
                 </Link>
               </div>
 
-              <button onClick={logOut}>Sign out</button>
+              <button id="logOutBtn" onClick={logOut}>
+                Sign out
+              </button>
             </>
           ) : (
             <></>

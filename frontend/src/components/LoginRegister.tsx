@@ -140,7 +140,7 @@ export const LoginRegister = () => {
   return (
     <>
       <div className="container">
-        <div className="contentCtn">
+        <div id="logincnt" className="contentCtn">
           {login ? <h2>Login</h2> : <h2>Register</h2>}
           <div className="inputs">
             {!login ? (
@@ -148,6 +148,7 @@ export const LoginRegister = () => {
                 {" "}
                 <label>Enter email</label>
                 <input
+                  id="registerEmailInput"
                   placeholder="Email..."
                   onChange={emailInput}
                   type="email"
@@ -162,6 +163,7 @@ export const LoginRegister = () => {
                 <>
                   <label>Username</label>
                   <input
+                    id="loginUserName"
                     onChange={setUser}
                     placeholder="Username..."
                     type="text"
@@ -171,6 +173,7 @@ export const LoginRegister = () => {
                 <>
                   <label> Select a username</label>
                   <input
+                    id="registerUsernameInput"
                     onChange={setUser}
                     placeholder="Username..."
                     type="text"
@@ -182,6 +185,7 @@ export const LoginRegister = () => {
             <div className="input">
               <label>Password</label>
               <input
+                id="passwordInput"
                 placeholder="Enter password..."
                 type="password"
                 onChange={setPass}
@@ -192,6 +196,7 @@ export const LoginRegister = () => {
               <div className="input">
                 <label>Repeat Password</label>
                 <input
+                  id="registerConfirmInput"
                   onChange={confirmPassword}
                   placeholder="Repeat password..."
                   type="password"
@@ -202,7 +207,9 @@ export const LoginRegister = () => {
             )}
 
             {login ? (
-              <span onClick={changeLogin}>Register account</span>
+              <span id="registerAccount" onClick={changeLogin}>
+                Register account
+              </span>
             ) : (
               <span onClick={changeLogin}>
                 Already Have an account? Sign in!
@@ -224,11 +231,15 @@ export const LoginRegister = () => {
             )}
 
             {login ? (
-              <button onClick={loginUser} className="btn">
+              <button id="loginUserBtn" onClick={loginUser} className="btn">
                 LOGIN
               </button>
             ) : (
-              <button onClick={registerUser} className="btn">
+              <button
+                id="registerUserBtn"
+                onClick={registerUser}
+                className="btn"
+              >
                 Sign up
               </button>
             )}
