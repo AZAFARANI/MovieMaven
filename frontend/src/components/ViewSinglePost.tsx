@@ -159,8 +159,10 @@ export const ViewSinglePost = () => {
   };
 
   const deletePost = () => {
+    console.log("deodepao");
+    navigate("/");
+
     setShowDelete(!showDelete);
-    navigate("/posts");
   };
 
   const goToUser = () => {

@@ -1,3 +1,4 @@
+import axios from "axios";
 import Cookies from "js-cookie";
 import { ChangeEvent, ChangeEventHandler, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -31,11 +32,14 @@ export const CreatePost = () => {
       navigate("/login");
     }
     setIsFetching(true);
-    fetch("http://www.omdbapi.com/?apikey=488b984b&i=" + params.id)
-      .then((qwert) => qwert.json())
-      .then((result: MovieExtended) => {
+    axios
+      .get<MovieExtended>(
+        "http://www.omdbapi.com/?apikey=488b984b&i=" + params.id
+      )
+
+      .then((result: any) => {
         setIsFetching(false);
-        setMovie(result);
+        setMovie(result.data);
       });
   }, []);
 
@@ -51,22 +55,29 @@ export const CreatePost = () => {
       imageUrl: movie.Poster,
     };
 
-    fetch("http://localhost:8000/newpost", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": Cookies.get("token")!,
-      },
-      body: JSON.stringify(post),
-    })
-      .then((res) => res.json())
+    // fetch("http://localhost:8000/newpost", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "auth-token": Cookies.get("token")!,
+    //   },
+    //   body: JSON.stringify(post),
+    // })
+
+    axios
+      .post("http://localhost:8000/newpost", post, {
+        headers: {
+          "auth-token": Cookies.get("token")!,
+        },
+      })
+
       .then((res) => {
         console.log(res);
-        navigate("/posts");
+        navigate("/");
       });
   };
 
-  console.log(movie);
+  //console.log(movie);
 
   return (
     <>
