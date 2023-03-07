@@ -109,7 +109,9 @@ export const Posts = (props: IPostsProps) => {
           <div className="h1">
             <h1>All reviews</h1>
             <Link to={"/selectMovie"}>
-              <button className="createBtn">+ CREATE REVIEW</button>
+              <button id="postsCreateBtn" className="createBtn">
+                + CREATE REVIEW
+              </button>
             </Link>
           </div>
 
@@ -131,7 +133,11 @@ export const Posts = (props: IPostsProps) => {
                 )}
 
                 {!showByDates ? (
-                  <div onClick={setShowDatesTrue} className="optionItem">
+                  <div
+                    id="mostRecentBtn"
+                    onClick={setShowDatesTrue}
+                    className="optionItem"
+                  >
                     Most recent
                   </div>
                 ) : (
@@ -158,7 +164,9 @@ export const Posts = (props: IPostsProps) => {
         </div>
 
         {!searchTerm && !showByDates && !showByLikes ? (
-          <div className="postsCtn2">{html}</div>
+          <div id="postsContainer" className="postsCtn2">
+            {html}
+          </div>
         ) : (
           <></>
         )}

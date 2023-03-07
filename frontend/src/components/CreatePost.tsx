@@ -122,10 +122,13 @@ export const CreatePost = () => {
         <div className="inputDiv">
           <h1>Share your thoughts on this movie!</h1>
           <textarea
+            id="createPostContent"
             onChange={setReview}
             placeholder="Write your review here..."
           ></textarea>
-          <button onClick={publish}>Publish Review</button>
+          <button id="publishBtn" onClick={publish}>
+            Publish Review
+          </button>
         </div>
       </div>
     </>

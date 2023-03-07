@@ -44,8 +44,14 @@ export const EditPost = (props: IEditPostProps) => {
     <>
       {post !== " " ? (
         <div className="editPostCtn">
-          <textarea value={post} onChange={changeContent}></textarea>
-          <button onClick={submitEdit}>Edit</button>
+          <textarea
+            id="editPostInput"
+            value={post}
+            onChange={changeContent}
+          ></textarea>
+          <button id="submitEditBtn" onClick={submitEdit}>
+            Edit
+          </button>
         </div>
       ) : (
         <></>

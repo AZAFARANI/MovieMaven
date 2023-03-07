@@ -183,9 +183,17 @@ export const ViewSinglePost = () => {
         ></img>
         {showEdit ? (
           <div className="editSection">
-            <img onClick={changeShowInput} src="/svg/pencil-square.svg"></img>
+            <img
+              id="editPostIcon"
+              onClick={changeShowInput}
+              src="/svg/pencil-square.svg"
+            ></img>
 
-            <img onClick={ShowdeletePost} src="/svg/trash.svg"></img>
+            <img
+              id="deletePostIcon"
+              onClick={ShowdeletePost}
+              src="/svg/trash.svg"
+            ></img>
           </div>
         ) : (
           <></>
@@ -214,7 +222,7 @@ export const ViewSinglePost = () => {
         </div>
         {!showInput ? (
           <div className="content">
-            <span>{post.post.content}</span>
+            <span id="reviewContentSpan">{post.post.content}</span>
           </div>
         ) : (
           <></>

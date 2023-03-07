@@ -47,11 +47,14 @@ export const SelectMovie = () => {
         <div className="inputDiv">
           <h3>Search for a movie to review</h3>
           <input
+            id="selectMovieInput"
             onChange={setSearchValue}
             type="text"
             placeholder="enter a movie here..."
           ></input>
-          <button onClick={fetchMovies}>Search</button>
+          <button id="selectMovieBtn" onClick={fetchMovies}>
+            Search
+          </button>
         </div>
       </div>
 
@@ -59,10 +62,10 @@ export const SelectMovie = () => {
 
       {movies ? (
         <div className="postsCnt1">
-          <div className="postsCtn2">
+          <div id="postsContainer" className="postsCtn2">
             {movies.map((movie, i) => {
               return (
-                <div key={i} className="post">
+                <div id="singlePost" key={i} className="post">
                   <Link to={"/CreatePost/" + movie.imdbID} key={movie.imdbID}>
                     <div className="imgCtn2">
                       <img src={movie.Poster}></img>

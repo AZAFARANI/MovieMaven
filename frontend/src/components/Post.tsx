@@ -16,7 +16,7 @@ export const Post = (props: IpostProps) => {
 
   return (
     <>
-      <div onClick={readPost} className="post">
+      <div id="singlePost" onClick={readPost} className="post">
         <div className="imgCtn">
           <img src={props.post.imageUrl}></img>
         </div>
