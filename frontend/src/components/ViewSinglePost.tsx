@@ -211,11 +211,19 @@ export const ViewSinglePost = () => {
         <div ref={ref} className="likesCtn">
           <div className="like">
             {liked ? (
-              <img onClick={unlikePost} src="/svg/heart-fill.svg"></img>
+              <img
+                id="UnlikePostIcon"
+                onClick={unlikePost}
+                src="/svg/heart-fill.svg"
+              ></img>
             ) : (
-              <img onClick={likePost} src="/svg/heart.svg"></img>
+              <img
+                id="likePostIcon"
+                onClick={likePost}
+                src="/svg/heart.svg"
+              ></img>
             )}
-            <span>{post.post.likes.length} likes</span>
+            <span id="postLikeValue">{post.post.likes.length} likes</span>
           </div>
 
           <span>{date.toLocaleDateString()}</span>
@@ -241,7 +249,7 @@ export const ViewSinglePost = () => {
                         <span>{c["user"]}</span>
                       </div>
                       <div className="cnt">
-                        <span>” {c["content"]} ”</span>
+                        <span id="reviewCommentValue">” {c["content"]} ”</span>
                       </div>
 
                       <div className="cnt">
@@ -250,16 +258,21 @@ export const ViewSinglePost = () => {
                     </div>
                   );
                 })}
-                <button onClick={changeShowComment}>Post comment</button>
+                <button id="reviewPostCommentBtn" onClick={changeShowComment}>
+                  Post comment
+                </button>
               </div>
             ) : (
               <div className="postComment">
                 <input
+                  id="reviewCommentInput"
                   onChange={setCommentValue}
                   type="text"
                   placeholder="enter your comment here..."
                 ></input>
-                <button onClick={postComment}>Post</button>
+                <button id="reviewPublishComment" onClick={postComment}>
+                  Post
+                </button>
                 <span onClick={changeShowComment} id="cancel">
                   cancel
                 </span>
