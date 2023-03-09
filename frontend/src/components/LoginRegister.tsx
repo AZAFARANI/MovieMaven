@@ -18,6 +18,7 @@ export const LoginRegister = () => {
   const [email, setEmail] = useState<string>("");
   const [showError, setShowError] = useState<boolean>(false);
   const [registerErr, setRegisterErr] = useState<boolean>(false);
+  const [undefinedErr, setUndefinedErr] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,16 +27,12 @@ export const LoginRegister = () => {
 
   const CheckParams = () => {
     if (window.location.pathname === "/login") {
-      console.log("true");
       setLogin(true);
     } else {
-      console.log("false");
       setLogin(false);
     }
 
     if (Cookies.get("token")) {
-      console.log("cookie!");
-
       navigate("/posts");
     }
   };
@@ -62,12 +59,15 @@ export const LoginRegister = () => {
       password: password,
     };
 
+    if (!userName || !password) {
+      setUndefinedErr(true);
+      return;
+    }
     axios
       .post("http://localhost:8000/login", user)
       .then((res: any) => {
         if (!res.data.token || res.data.success === "false") {
           setShowError(!showError);
-          console.log("mleöaöle");
         } else {
           Cookies.set("token", res.data.token, {
             expires: 1,
@@ -90,13 +90,10 @@ export const LoginRegister = () => {
         if (res.success === "false" || !res.token) {
           setShowError(!showError);
         }
-        console.log(res);
       });
   };
 
   const registerUser = () => {
-    // const { userName, email, password, confirmPassword } = req.body;
-
     let user = {
       userName: userName,
       email: email,
@@ -226,6 +223,12 @@ export const LoginRegister = () => {
               <span className="errorSpan">
                 Username or email already in use!
               </span>
+            ) : (
+              <></>
+            )}
+
+            {undefinedErr ? (
+              <span className="errorSpan">Please enter all fields!</span>
             ) : (
               <></>
             )}

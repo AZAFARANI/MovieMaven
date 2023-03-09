@@ -12,13 +12,11 @@ interface ILayoutProps {
 export const LayoutNav = (props: ILayoutProps) => {
   const [click, setClick] = useState(false);
   const [loggedIn, setLogged] = useState<boolean>(props.loggedIn);
-  const [logged2, setLogged2] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     setLogged(props.loggedIn);
 
-    console.log("nav is going");
     if (!Cookies.get("token")) {
       navigate("/login");
     }

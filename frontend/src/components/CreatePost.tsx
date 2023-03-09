@@ -23,6 +23,7 @@ export const CreatePost = () => {
   });
   const [content, setContent] = useState<string>("");
   const [isFetching, setIsFetching] = useState<boolean>(false);
+  const [showErr, setShowErr] = useState<boolean>(false);
 
   let params = useParams();
   const navigate = useNavigate();
@@ -55,14 +56,10 @@ export const CreatePost = () => {
       imageUrl: movie.Poster,
     };
 
-    // fetch("http://localhost:8000/newpost", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "auth-token": Cookies.get("token")!,
-    //   },
-    //   body: JSON.stringify(post),
-    // })
+    if (content.length < 2) {
+      setShowErr(true);
+      return;
+    }
 
     axios
       .post("http://localhost:8000/newpost", post, {
@@ -72,12 +69,9 @@ export const CreatePost = () => {
       })
 
       .then((res) => {
-        console.log(res);
         navigate("/");
       });
   };
-
-  //console.log(movie);
 
   return (
     <>
@@ -129,6 +123,14 @@ export const CreatePost = () => {
           <button id="publishBtn" onClick={publish}>
             Publish Review
           </button>
+
+          {showErr ? (
+            <span className="errorSpan">
+              Review must be atleast 2 characters long!
+            </span>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </>

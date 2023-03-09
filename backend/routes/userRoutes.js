@@ -5,10 +5,6 @@ const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const { hashedPassword, comparePassword } = require("../utils");
 
-userRouter.get("/hello", (req, res) => {
-  res.send("hello");
-});
-
 userRouter.post("/register", async (req, res) => {
   const { userName, email, password, confirmPassword } = req.body;
 
@@ -69,10 +65,8 @@ userRouter.post("/login", async (req, res) => {
 
 userRouter.get("/users", verifyToken, async (req, res) => {
   try {
-    // Find all users in the database
     const users = await UserModel.find({}).lean();
 
-    // Send users to client
     return res.json({
       success: true,
       users: users,
@@ -85,7 +79,6 @@ userRouter.get("/users", verifyToken, async (req, res) => {
   }
 });
 
-// Middleware function to verify JWT
 function verifyToken(req, res, next) {
   const token = req.header("auth-token");
   if (!token) return res.status(401).send("Access Denied");
@@ -104,7 +97,7 @@ function verifyToken(req, res, next) {
 userRouter.get("/user/:id", verifyToken, async (req, res) => {
   try {
     const user = await UserModel.findOne({ userName: req.params.id }).lean();
-    console.log(user, req.params.id);
+
     return res.json({
       success: true,
       user: user,

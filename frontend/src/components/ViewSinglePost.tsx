@@ -45,7 +45,6 @@ export const ViewSinglePost = () => {
         },
       })
       .then((res) => {
-        console.log(res.data.post);
         setPost(res.data);
         let likes: [] = res.data.post.likes;
 
@@ -77,7 +76,6 @@ export const ViewSinglePost = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         setLiked(!liked);
         let tempLike: any = { ...post };
         tempLike.post.likes.push({ user: Cookies.get("user")! });
@@ -112,7 +110,6 @@ export const ViewSinglePost = () => {
 
   const setCommentValue = (e: ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
-    console.log(comment);
   };
 
   const postComment = () => {
@@ -159,7 +156,6 @@ export const ViewSinglePost = () => {
   };
 
   const deletePost = () => {
-    console.log("deodepao");
     navigate("/");
 
     setShowDelete(!showDelete);

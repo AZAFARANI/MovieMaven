@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
+
 import "./index.scss";
 import Cookies from "js-cookie";
 import {
